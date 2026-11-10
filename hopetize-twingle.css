@@ -8,9 +8,9 @@
   --hz-orange:#F48A4A; --hz-orange-deep:#E16E3E; --hz-orange-border:#FBBEA3;
   --hz-yellow-light:#FFF1A6; --hz-yellow:#FFC23D;
   --hz-lilac-200:#E7D6FA; --hz-lilac-100:#F1E5FF; --hz-lilac-50:#F7F1FE; --hz-peach:#FFD7BE;
-  --hz-line:#E6DCF2; --hz-white:#FFFFFF; --hz-error:#B4361A;
+  --hz-line:#F1EAF9; --hz-line-strong:#E4D7F3; --hz-white:#FFFFFF; --hz-error:#B4361A;
   --hz-r-field:16px; --hz-r-tile:20px; --hz-r-pill:999px;
-  --hz-sh-soft:0 4px 12px rgba(78,46,113,.06);
+  --hz-sh-soft:0 22px 44px -18px rgba(78,46,113,.16);
   --hz-sh-raised:0 2px 4px rgba(46,24,70,.08),0 8px 18px -6px rgba(78,46,113,.22);
   --hz-focus:0 0 0 3px #fff,0 0 0 5px var(--hz-purple);
   --hz-t:150ms cubic-bezier(.2,.7,.2,1);
@@ -22,7 +22,7 @@
 html,body,#twingleBodyWrapper,donation-app,.form,input,select,textarea,button,label,h1,h2,h3,p,small,strong,span,a{font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif!important}
 body,#twingleBodyWrapper{background:transparent!important;color:var(--hz-ink-soft)!important;-webkit-font-smoothing:antialiased;font-size:16px}
 #twingleBodyWrapper{padding:0 3px!important}
-html,body{overflow-x:hidden!important}
+#twingleBodyWrapper{overflow-x:clip}
 .row{max-width:none!important}
 .form.start{padding:0!important;background:transparent!important;box-shadow:none!important;border:0!important}
 project-progress,page-header,step-navigation{display:none!important}
@@ -34,8 +34,8 @@ a{color:var(--hz-purple)!important}
   font-size:1.25rem!important;font-weight:700!important;line-height:1.25!important;letter-spacing:-.015em!important;
   color:var(--hz-ink)!important;text-transform:none!important;margin:36px 0 14px!important;padding:0!important;background:none!important}
 #label-transaction-amount::before,label.like-headline::before,.payment-wrapper h2::before{
-  flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
-  background:var(--hz-yellow);color:var(--hz-ink);font-size:.9375rem;font-weight:700;letter-spacing:0}
+  flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(180deg,#F6D76B,#E8B935);border:3px solid #fff;box-shadow:0 2px 6px rgba(138,99,0,.18);color:#3B0F09;font-size:.9375rem;font-weight:800;letter-spacing:0;box-sizing:content-box}
 #label-transaction-amount::before{content:"1"}
 label.like-headline::before{content:"2"}
 .payment-wrapper h2::before{content:"3"}
@@ -55,7 +55,7 @@ amount label.radio{
 amount label.radio:hover{border-color:var(--hz-lilac-200)!important;box-shadow:var(--hz-sh-raised)!important}
 amount label.radio:active{transform:scale(.98)}
 amount label.radio span{display:contents!important}
-amount label.radio strong{font-size:1.75rem!important;font-weight:700!important;letter-spacing:-.035em!important;line-height:1!important;color:var(--hz-purple)!important;font-variant-numeric:tabular-nums}
+amount label.radio strong{font-size:1.875rem!important;font-weight:800!important;letter-spacing:-.03em!important;line-height:1!important;color:var(--hz-purple)!important;font-variant-numeric:tabular-nums}
 amount label.radio small{font-size:.8125rem!important;color:var(--hz-ink-soft)!important;line-height:1.25!important;text-align:center}
 amount input[type=radio]:checked+label.radio{border:2px solid var(--hz-purple)!important;background:var(--hz-lilac-50)!important;box-shadow:0 8px 20px -10px rgba(97,50,140,.55)!important}
 amount input[type=radio]:checked+label.radio::after{content:"";position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;background:var(--hz-purple) var(--hz-check) center/14px no-repeat;box-shadow:0 0 0 3px #fff}
@@ -94,7 +94,7 @@ amount button.button:not(.inactive){border-color:var(--hz-purple)!important;back
 .salutation-wrapper{display:none!important}
 .input-wrapper{margin-bottom:10px!important}
 .input-wrapper input,.input-wrapper select,textarea{
-  height:56px!important;border-radius:var(--hz-r-field)!important;border:1.5px solid var(--hz-line)!important;background:var(--hz-white)!important;
+  height:56px!important;border-radius:var(--hz-r-field)!important;border:1.5px solid var(--hz-line-strong)!important;background:var(--hz-white)!important;
   color:var(--hz-ink)!important;font-size:1rem!important;box-shadow:none!important;padding-left:16px!important;transition:border-color var(--hz-t),box-shadow var(--hz-t)}
 textarea{height:auto!important;min-height:110px;padding-top:16px!important}
 .input-wrapper input:hover,.input-wrapper select:hover,textarea:hover{border-color:var(--hz-lilac-200)!important}
