@@ -22,6 +22,7 @@
 html,body,#twingleBodyWrapper,donation-app,.form,input,select,textarea,button,label,h1,h2,h3,p,small,strong,span,a{font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif!important}
 body,#twingleBodyWrapper{background:transparent!important;color:var(--hz-ink-soft)!important;-webkit-font-smoothing:antialiased;font-size:16px}
 #twingleBodyWrapper{padding:0 3px!important}
+html,body{overflow-x:hidden!important}
 .row{max-width:none!important}
 .form.start{padding:0!important;background:transparent!important;box-shadow:none!important;border:0!important}
 project-progress,page-header,step-navigation{display:none!important}
@@ -134,7 +135,7 @@ textarea{height:auto!important;min-height:110px;padding-top:16px!important}
 
 /* ---------- Schritt 3: Zahlungsart ---------- */
 .payment-wrapper{padding:0!important}
-.payment-component-wrapper .method-wrapper,.payment-component-wrapper .method-wrapper.recommendation-visible{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important;background:transparent!important;padding:10px 0 0!important;margin:0 0 6px!important}
+.payment-component-wrapper .method-wrapper,.payment-component-wrapper .method-wrapper.recommendation-visible{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px!important;background:transparent!important;padding:20px 0 0!important;margin:0 0 6px!important}
 .payment-component-wrapper .method-wrapper>div{width:auto!important;margin:0!important;padding:0!important;flex:none!important}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label{
   position:relative;min-height:64px!important;height:100%!important;margin:0!important;padding:10px!important;
