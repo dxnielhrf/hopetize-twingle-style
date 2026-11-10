@@ -179,6 +179,9 @@ textarea{height:auto!important;min-height:110px;padding-top:16px!important}
 .submit-wrapper button.button:hover{box-shadow:0 10px 22px -8px rgba(225,110,62,.65)!important}
 .submit-wrapper button.button:active{transform:scale(.98)}
 .submit-wrapper button.button:focus-visible{box-shadow:var(--hz-focus)!important}
+/* PayPal/Google Pay rendern ihren eigenen Button in #expresscheckout; dann eigenen Absende-Button ausblenden (wie Twingle-Standard) */
+.submit-wrapper #expresscheckout:not(:empty)+submit button.button{display:none!important}
+.submit-wrapper #expresscheckout:not(:empty){margin-bottom:6px}
 .submit-wrapper .hint{background:transparent!important;color:var(--hz-ink-muted)!important;font-size:.8125rem!important;text-align:center;margin-top:10px!important}
 footer.form,.impress-wrapper{background:transparent!important;text-align:center}
 .impress-wrapper a{color:var(--hz-ink-muted)!important;font-size:.8125rem}
