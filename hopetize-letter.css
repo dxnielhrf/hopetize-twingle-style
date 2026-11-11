@@ -1,0 +1,26 @@
+/* Hopetize: Danke-Anschreiben (Twingle-PDF) im Design der neuen Website.
+   Twingle laedt diese Datei nach seinem Standard-CSS (Struktur: section.page > .address, .content > aside/.date/.subject/.letter).
+   Logo + Schrift kommen per jsDelivr aus diesem Repo bzw. Fontsource. */
+@font-face{font-family:"Figtree";font-weight:400;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff") format("woff")}
+@font-face{font-family:"Figtree";font-weight:600;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-600-normal.woff") format("woff")}
+@font-face{font-family:"Figtree";font-weight:700;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff") format("woff")}
+
+body{font-family:"Figtree","Fira Sans",sans-serif;color:#242321;font-size:10.5pt;line-height:1.5}
+
+/* Briefkopf: Logo oben links, lila Linie */
+section.page::before{content:"";position:absolute;top:0;left:0;width:50mm;height:11.4mm;background:url("https://cdn.jsdelivr.net/gh/dxnielhrf/hopetize-twingle-style@v6/hopetize-logo.png") left top/contain no-repeat}
+section.page{border-top:0}
+.address{margin-bottom:1.6cm}
+.address .sender{color:#6B6175;font-size:7.5pt;border-bottom:.5pt solid #E7D6FA;padding-bottom:1mm;display:inline-block}
+.address .receiver{font-size:10.5pt;line-height:1.35}
+
+/* Absenderblock rechts als Flieder-Karte */
+aside{background:#F7F1FE;border-radius:4mm;padding:4mm 4mm 2mm;width:41mm;right:-4mm;color:#4A4152;font-size:8.5pt;line-height:1.45}
+aside strong{color:#61328C;font-weight:700;margin-bottom:1mm}
+
+.date{color:#6B6175;font-size:9.5pt}
+.subject{color:#61328C;font-size:15pt;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-top:1cm;margin-bottom:.6cm}
+.letter{font-size:10.5pt;line-height:1.55}
+
+/* Fusszeile: Spendenkonto + Kontakt */
+section.page::after{content:"Hopetize Kinderkrebshilfe e. V.  ·  hopetize.de  ·  hallo@hopetize.de  ·  Spendenkonto IBAN DE61 7315 0000 1003 1816 15";position:absolute;left:0;right:0;bottom:0;padding-top:3mm;border-top:1.5pt solid #61328C;color:#6B6175;font-size:7.5pt;letter-spacing:.01em}
