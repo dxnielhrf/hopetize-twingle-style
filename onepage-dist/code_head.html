@@ -171,7 +171,7 @@ setTimeout(function () { w.classList.add('is-pill-open'); }, delay + i * 230);
 });
 }
 W.addEventListener('resize', function () { $$('.pill-wrap').forEach(measurePill); });
-var RV = ['.hero_benefit', '.hero_trust .eyebrow', '.hero_logo', '.section-head > .tag', '.section-head > .text-size-large', '.barometer', '.impact_card', '.wrapper_xmas > .eyebrow', '.step_card', '.numbers_bar', '.about_cities-label', '.chip.is-city', '.about_photo', '.fact_card', '.wrapper_about > .button-group', '.wrapper_xmas > .button-group', '.quote_card', '.map_content > p', '.map_stat', '.map_content > .button-group', '.map_card', '.help_card', '.help_chips > *', '.transparency', '.wrapper_help > .button-group', '.voices_slider', '.business_card', '.business_checks > *', '.business_photo', '.wrapper_business > .button-group', '.business_logos .eyebrow', '.logo_wall', '.wrapper_projects > .section-head > .tag', '.hp-proj_card', '.wrapper_projects > .button-group', '.bank_card', '.donate_receipt', '.faq_item', '.contact_content > p', '.contact_card', '.contact_form-card', '.footer_top > *'];
+var RV = ['.hero_benefit', '.hero_trust .eyebrow', '.hero_logo', '.section-head > .tag', '.section-head > .text-size-large', '.barometer', '.impact_card', '.wrapper_xmas > .eyebrow', '.step_card', '.numbers_bar', '.about_cities-label', '.chip.is-city', '.about_photo', '.fact_card', '.wrapper_about > .button-group', '.wrapper_xmas > .button-group', '.quote_card', '.map_content > p', '.map_stat', '.map_content > .button-group', '.map_card', '.help_card', '.help_chips > *', '.transparency', '.wrapper_help > .button-group', '.voices_slider', '.business_card', '.business_checks > *', '.business_photo', '.wrapper_business > .button-group', '.business_logos .eyebrow', '.logo_wall', '.bank_card', '.donate_receipt', '.faq_item', '.contact_content > p', '.contact_card', '.contact_form-card', '.footer_top > *'];
 var scaleSet = ['.barometer', '.numbers_bar', '.map_card', '.quote_card', '.about_photo', '.contact_form-card'];
 var rvEls = [];
 RV.forEach(function (s) { $$(s).forEach(function (el) { if (rvEls.indexOf(el) < 0) { el.setAttribute('data-rv', scaleSet.indexOf(s) > -1 ? 'scale' : ''); rvEls.push(el); } }); });
@@ -466,6 +466,44 @@ function seenCheck() { try { return sessionStorage.getItem('ht-loader') === '1' 
 var fontsReady = d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve();
 Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1400); })]).then(function () { requestAnimationFrame(boot); });
 var rz; W.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { heads.forEach(lineIndex); moveInd(activeLink); }, 200); });
+})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
+/* Barometer-Etappen auf der Startseite (wie auf /weihnachten): liest data-raised / data-donators,
+die interactions.js aus den twingle-Projektdaten setzt, und baut Etappen-Kacheln, Marken und Anzahl.
+Die Weihnachtsseite rendert das selbst (pages/weihnachten/js/wx.js), daher dort aus. */
+(function () {
+'use strict';
+if (window.wxTwingle) return;
+var bar = document.querySelector('.barometer.wx-barometer'), ol = bar && bar.querySelector('[data-stages]');
+if (!ol) return;
+var GOALS = [{ a: 12500, t: 'Etappe 1' }, { a: 25000, t: 'Etappe 2' }, { a: 50000, t: 'Ziel' }, { a: 100000, t: 'Bonusziel', bonus: true }];
+var PER_WISH = 40, last = GOALS[GOALS.length - 2].a;
+var eur = function (n) { return Math.round(n).toLocaleString('de-DE') + ' €'; };
+var int = function (n) { return Math.round(n).toLocaleString('de-DE'); };
+var bind = function (k, v) { [].forEach.call(bar.querySelectorAll('[data-bind="' + k + '"]'), function (e) { e.textContent = v; }); };
+function render() {
+var sum = +bar.getAttribute('data-raised') || 0, count = +bar.getAttribute('data-donators') || 0;
+var goal = sum >= last ? GOALS[GOALS.length - 1].a : last;
+bind('count', int(count)); bind('countLabel', count === 1 ? 'Spende' : 'Spenden'); bind('pct', Math.floor(Math.min(100, sum / goal * 100)) + ' %');
+var track = bar.querySelector('.barometer_track');
+[].forEach.call(bar.querySelectorAll('.wx-mark'), function (m) { m.remove(); });
+GOALS.forEach(function (g) {
+if (g.a >= goal || !track) return;
+var m = document.createElement('span'); m.className = 'wx-mark' + (sum >= g.a ? ' is-done' : ''); m.style.left = (g.a / goal * 100) + '%'; track.appendChild(m);
+});
+var next = false; ol.innerHTML = '';
+GOALS.forEach(function (g) {
+var done = sum >= g.a, locked = g.bonus && sum < last, li = document.createElement('li');
+li.className = 'wx-stage' + (done ? ' is-done' : '') + (!done && !next && !locked ? ' is-next' : '') + (locked ? ' is-locked' : '');
+if (!done && !locked) next = true;
+li.innerHTML = '<span class="wx-stage-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
+'<span class="wx-stage-t">' + g.t + '<small>' + (locked ? 'öffnet bei ' + eur(last) : 'rund ' + int(g.a / PER_WISH) + ' Wünsche') + '</small></span><b class="wx-stage-a">' + eur(g.a) + '</b>';
+li.setAttribute('aria-label', g.t + ', ' + eur(g.a) + (done ? ', erreicht' : locked ? ', noch gesperrt' : ', noch offen'));
+ol.appendChild(li);
+});
+}
+render();
+new MutationObserver(render).observe(bar, { attributes: true, attributeFilter: ['data-raised', 'data-donators'] });
 })();
 });</script><script>document.addEventListener('DOMContentLoaded',function(){
 (function(){var d=document,q=function(s){return Array.prototype.slice.call(d.querySelectorAll(s))};
