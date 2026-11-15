@@ -1,4 +1,4 @@
-<script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><script>(function(h){h.classList.add('js');try{if(sessionStorage.getItem('ht-loader')!=='1'||/[?&]loader/.test(location.search))h.classList.add('is-loading')}catch(e){h.classList.add('is-loading')}})(document.documentElement);</script><style>.skip-to-content,#root .con-kit-page>:not(.con-kit-component-cookie-banner){display:none!important}#root,#root .con-kit-site,#root .con-kit-page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important}</style><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2"><link rel="icon" type="image/png" sizes="32x32" href="https://onecdn.io/media/effb2c8e-1c05-479f-83b1-9c4cce7b7b98/full"><link rel="apple-touch-icon" href="https://onecdn.io/media/0de89681-2481-454a-ba10-0f233ca93804/full"><script>document.addEventListener('DOMContentLoaded',function(){
+<script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><script>(function(h){h.classList.add('js');try{if(sessionStorage.getItem('ht-loader')!=='1'||/[?&]loader/.test(location.search))h.classList.add('is-loading')}catch(e){h.classList.add('is-loading')}})(document.documentElement);</script><style>.skip-to-content,#root .con-kit-page>:not(.con-kit-component-cookie-banner):not(.con-kit-component-cookie-banner-bulka){display:none!important}#root,#root .con-kit-site,#root .con-kit-page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important}</style><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2"><link rel="icon" type="image/png" sizes="32x32" href="https://onecdn.io/media/effb2c8e-1c05-479f-83b1-9c4cce7b7b98/full"><link rel="apple-touch-icon" href="https://onecdn.io/media/0de89681-2481-454a-ba10-0f233ca93804/full"><script>document.addEventListener('DOMContentLoaded',function(){
 /* Onepage-Port: Onepage rendert seine Sektionen in #root (React). Unsere Seite liegt komplett im Seiten-Code daneben.
 #root enthaelt nur eine leere Platzhalter-Sektion (Onepage braucht >= 1 Sektion zum Veroeffentlichen) und ist per Head-CSS ausgeblendet. */
 (function () {
@@ -391,6 +391,12 @@ e.preventDefault(); e.stopImmediatePropagation(); openModal(a);
 $('.donate_modal-backdrop', modal).addEventListener('click', closeModal);
 $('.donate_modal-close', modal).addEventListener('click', function (e) { e.preventDefault(); closeModal(); });
 d.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+var openFromHash = function () {
+if (location.hash !== '#spenden') return;
+if (html.classList.contains('is-loading')) { setTimeout(openFromHash, 200); return; }
+openModal(null); history.replaceState(null, '', location.pathname + location.search);
+};
+openFromHash(); W.addEventListener('hashchange', openFromHash);
 }
 $$('.faq_item').forEach(function (it) {
 var q = $('.faq_question', it);
