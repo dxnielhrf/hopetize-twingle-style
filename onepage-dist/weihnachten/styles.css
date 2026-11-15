@@ -913,3 +913,4 @@ html.hv-lock .wx-dock,body.is-menu-open .wx-dock{transform:translateY(160%)}
 .wx-msgs .wx-msg.wx-don{margin:0;box-shadow:0 14px 30px -20px rgba(78,46,113,.25)}
 .wx-msg.wx-don.is-anon .wx-msg-av{color:#e16e3e}
 .wx-msg.wx-don:not(.is-anon) .wx-msg-av{font-size:.875em;color:var(--purple-deep)}
+.wx-msg[hidden]{display:none!important}

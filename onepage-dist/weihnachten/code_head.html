@@ -7,7 +7,7 @@ beantwortet nur diese URL (auch mit ?stand=…) aus einem gemeinsamen Promise; ?
 var TW = 'https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form';
 var PREVIEW = /[?&]vorschau=1\b/.test(location.search);
 var SAMPLE = { project_target_amount: 18450, project_target_donators: 214, project_donations: [
-{ amount: '40', name: 'Julia Berger', sample: 1 }, { amount: '120', sample: 1 }, { amount: '25', name: 'Tom', sample: 1 }, { amount: '500', sample: 1 }, { amount: '40', sample: 1 }, { amount: '80', sample: 1 }
+{ amount: '40', name: 'Julia Berger', sample: 1 }, { amount: '120', sample: 1 }, { amount: '25', name: 'Tom', sample: 1 }, { amount: '500', sample: 1 }, { amount: '40', sample: 1 }, { amount: '80', sample: 1 }, { amount: '40', sample: 1 }, { amount: '20', sample: 1 }, { amount: '120', sample: 1 }, { amount: '40', sample: 1 }, { amount: '60', sample: 1 }, { amount: '100', sample: 1 }, { amount: '40', sample: 1 }, { amount: '500', sample: 1 }, { amount: '35', sample: 1 }, { amount: '40', sample: 1 }
 ] };
 var F = window.fetch, p = null;
 window.wxPreview = PREVIEW;
@@ -605,7 +605,7 @@ li.setAttribute('aria-label', g.t + ', ' + eur(g.a) + (done ? ', erreicht' : loc
 ol.appendChild(li);
 });
 }
-var msgs = [], shown = W.matchMedia('(max-width:767px)').matches ? 3 : 6;
+var msgs = [], showAll = false; // Spendenkarten: zuerst 3 Reihen, "Alle anzeigen" klappt den Rest auf
 function ago(t) {
 if (!t) return '';
 var n = +t, dt = new Date(!isNaN(n) && n < 1e12 ? n * 1000 : t); if (isNaN(dt)) return ''; // twingle liefert Unix-Sekunden als Text
@@ -629,16 +629,28 @@ box.innerHTML = '<div class="wx-empty"><h4 class="wx-card-title">Hier erscheinen
 more.hidden = true; return;
 }
 box.className = 'wx-msgs';
-box.innerHTML = msgs.slice(0, shown).map(function (m) {
+box.innerHTML = msgs.map(function (m) {
 var amt = +m.amount > 0 ? eur(+m.amount) : 'Eine Spende', n = shortName(m.name);
 var ini = n ? n.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase() : '♥';
 return '<article class="wx-msg wx-don' + (m.sample ? ' is-sample' : '') + (n ? '' : ' is-anon') + '"><span class="wx-msg-av" aria-hidden="true">' + esc(ini) + '</span>' +
 '<span class="wx-msg-who">' + esc(n || 'Anonym') + '<small>' + esc(amt) + ' gespendet · ' + esc(m.sample ? 'Beispiel' : ago(m.time)) + '</small></span></article>';
 }).join('');
-more.hidden = msgs.length <= shown;
 $$('.wx-msg').forEach(function (el, i) { reveal(el, '', (i % 6) * 90); });
+limitRows();
 }
-$('#wxMore').addEventListener('click', function () { shown += 6; renderMsgs(); });
+function limitRows() {
+var box = $('#wxMsgs'), more = $('#wxMore'), cards = $$('#wxMsgs .wx-msg');
+if (!cards.length) { more.hidden = true; return; }
+var cols = (getComputedStyle(box).gridTemplateColumns || '').split(' ').filter(Boolean).length || 1, max = cols * 3;
+cards.forEach(function (c, i) { c.hidden = !showAll && i >= max; });
+more.hidden = cards.length <= max;
+more.textContent = showAll ? 'Weniger anzeigen' : 'Alle ' + cards.length + ' Spenden anzeigen';
+}
+$('#wxMore').addEventListener('click', function () {
+showAll = !showAll; limitRows();
+if (!showAll) $('.wx-msgs-head').scrollIntoView({ block: 'start', behavior: 'smooth' });
+});
+var lrT; W.addEventListener('resize', function () { clearTimeout(lrT); lrT = setTimeout(limitRows, 150); });
 function pick(o, keys) { for (var i = 0; i < keys.length; i++) { if (o[keys[i]] != null && o[keys[i]] !== '') return o[keys[i]]; } return ''; }
 if (W.wxPreview) $('.wx-preview').hidden = false;
 render(0, 0);
