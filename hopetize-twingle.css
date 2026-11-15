@@ -39,6 +39,11 @@ a{color:var(--hz-purple)!important}
 #label-transaction-amount::before{content:"1"}
 label.like-headline::before{content:"2"}
 .payment-wrapper h2::before{content:"3"}
+/* Twingle tauscht die Schritt-3-Ueberschrift je Zahlungsart aus ("PayPal", "Bitte E-Mail-Adresse ..."); sichtbar immer gleich lassen */
+.payment-wrapper h2{font-size:0!important}
+.payment-wrapper h2::after{content:"Wie möchtest du spenden?";font-size:1.25rem}
+/* SEPA-Wechsel-Tipp bei Ueberweisung passt nicht zur PayPal-Empfehlung */
+.payment-sepa-hint-wrapper{display:none!important}
 amount #label-transaction-amount{margin-top:6px!important}
 
 /* ---------- Schritt 1: Betrag ---------- */
