@@ -300,3 +300,8 @@ amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight
 /* v12: vier Betraege + "mehr" (z. B. FC Günzburg) in eine Reihe, auf schmalen Handys 2 × 2 */
 amount .button-wrapper:has(>:nth-child(5):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:420px){amount .button-wrapper:has(>:nth-child(5):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* v13: Adresse – Straße volle Breite, darunter PLZ (1/3) + Ort (2/3); vorher brach "PLZ (optional)" in der 2/12-Spalte um */
+textfield:has(#street)>.input-wrapper{width:100%!important}
+textfield:has(#postal_code)>.input-wrapper{width:33.3333%!important}
+textfield:has(#city)>.input-wrapper{width:66.6667%!important}
