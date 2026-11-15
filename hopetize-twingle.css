@@ -305,3 +305,6 @@ amount .button-wrapper:has(>:nth-child(5):last-child){grid-template-columns:repe
 textfield:has(#street)>.input-wrapper{width:100%!important}
 textfield:has(#postal_code)>.input-wrapper{width:33.3333%!important}
 textfield:has(#city)>.input-wrapper{width:66.6667%!important}
+
+/* v14: keine öffentlichen Namen/Nachrichten – Spendenliste zeigt nur Betrag + Zeitpunkt (Missbrauch/Werbung vermeiden) */
+donator,.event-donator{display:none!important}
