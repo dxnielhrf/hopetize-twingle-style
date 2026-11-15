@@ -178,6 +178,7 @@ label{margin-bottom:5px;font-weight:bold;display:block}
 .voice_text{color:#2a1640;font-size:1.75em;font-weight:600;line-height:1.45;position:relative}
 .voice_name{color:var(--_colors---purple);margin-top:1.25em;font-size:1.25em;font-weight:700;position:relative}
 .section_business{background-color:var(--_colors---white);position:relative}
+.business_text{color:var(--_colors---text);margin-top:.6em;font-size:1.1875em;line-height:1.55}
 .amount_form{margin-bottom:0}
 .bank_iban,.bank_copy-text{display:inline}
 .section_donate{background-image:linear-gradient(#faf8fe 0%,#fff6ef 100%);position:relative}
@@ -805,6 +806,13 @@ a.chip.is-link:hover .chip_arrow{transform:translateX(3px)}
 }
 a.chip.is-link:focus-visible{outline:3px solid #f2c74f;outline-offset:3px}
 a.chip.is-link.is-light,a.chip.is-link.is-light:visited{color:var(--_colors---purple)}
+@media (max-width:767px){.impact_grid.is-4 .impact_card{flex-direction:column;justify-content:flex-start;text-align:center;padding:1.25em .75em;gap:.4em}
+.impact_grid.is-4 .impact_amount{font-size:2em}
+.impact_grid.is-4 .impact_card.is-custom .impact_amount,.impact_grid.is-4 .impact_card[data-amount=""] .impact_amount{font-size:1.15em;padding:.35em 0}
+.impact_grid.is-4 .impact_text{font-size:.875em;max-width:none}
+.impact_grid.is-4 .wx-cta{font-size:.8125em}
+}
+.business_text,.impact_text,.step_text{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
