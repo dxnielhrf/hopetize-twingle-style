@@ -278,3 +278,10 @@ amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight
 .submit-wrapper button.button,.submit-wrapper button.button.grey{min-height:54px!important;font-size:1.0625rem!important}
 
 @media (prefers-reduced-motion:reduce){*{transition-duration:1ms!important;animation:none!important}}
+
+/* v10: "anderer Betrag" – Twingles graue Slider-Box entfernen, Spur volle Breite */
+.amount-wrapper .slider-input-wrapper .slider-wrapper{background:none!important;box-shadow:none!important;border:0!important;padding:0 0 0 6px!important;min-height:48px}
+.amount-wrapper .slider-wrapper .slider{display:flex;align-items:center;height:48px;padding:0!important;margin:0!important}
+.amount-wrapper .slider-wrapper .slider input[type="range"]{width:100%!important;height:48px!important;margin:0!important;padding:0!important;-webkit-appearance:none;appearance:none}
+.amount-wrapper .slider-wrapper .slider::before,.amount-wrapper .slider-wrapper .slider::after{display:none!important}
+.slider-wrapper .close{flex:0 0 32px}
