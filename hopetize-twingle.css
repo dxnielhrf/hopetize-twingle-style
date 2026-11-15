@@ -237,7 +237,8 @@ amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight
 
 /* Felder: Beschriftung ueber dem Feld */
 .input-wrapper input,.input-wrapper select{height:48px!important;border-radius:12px!important;font-size:.9375rem!important}
-.input-wrapper{position:relative}
+.input-wrapper{position:relative;display:flex!important;flex-direction:column}
+.input-wrapper>label{order:-1}
 .input-wrapper label{position:static!important;transform:none!important;display:block!important;margin:0 0 6px!important;padding:0!important;font-weight:600!important;font-size:.875rem!important;color:var(--hz-ink)!important;opacity:1!important;background:none!important;line-height:1.3!important;top:auto!important;left:auto!important}
 .input-wrapper input::placeholder{color:#A69BB3!important;opacity:1}
 .input-wrapper.ng-invalid.ng-touched input{background:#FFF8F6!important}
@@ -252,7 +253,7 @@ amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight
 /* Zahlungsart: Radio-Pills wie im Figma */
 .payment-component-wrapper .method-wrapper,.payment-component-wrapper .method-wrapper.recommendation-visible{gap:8px!important;padding-top:0!important}
 .payment-component-wrapper .method-wrapper payment-icons{display:none!important}
-.payment-component-wrapper .method-wrapper input[type="radio"]+label{flex-direction:row!important;align-items:center!important;flex-wrap:wrap;gap:4px 10px!important;min-height:52px!important;padding:10px 14px!important;border-radius:14px!important;border:1.5px solid var(--hz-line-strong)!important;box-shadow:none!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label{flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;flex-wrap:nowrap;gap:10px!important;min-height:52px!important;padding:10px 14px!important;border-radius:14px!important;border:1.5px solid var(--hz-line-strong)!important;box-shadow:none!important}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label:hover,.payment-component-wrapper .method-wrapper input[type="radio"]+label:focus{border:1.5px solid var(--hz-lilac-200)!important;box-shadow:none!important}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;border:2px solid #CBB8E3;background:#fff;box-sizing:border-box}
 .payment-component-wrapper .method-wrapper input[type="radio"]:checked+label{border:2px solid var(--hz-purple)!important;background:var(--hz-lilac-100)!important}
@@ -262,6 +263,7 @@ amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight
 .payment-component-wrapper .method-wrapper input[type="radio"]+label>span small{display:none!important}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_konfipay"]>span{font-size:0!important}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_konfipay"]>span::before{content:"Lastschrift";font-size:.9375rem;font-weight:600}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_banktransfer"]>span{font-size:0!important}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_banktransfer"]>span::before{font-weight:600}
 .payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_banktransfer"]>span::after{content:none!important}
 @media (min-width:640px){.payment-component-wrapper .method-wrapper,.payment-component-wrapper .method-wrapper.recommendation-visible{grid-template-columns:repeat(3,minmax(0,1fr))}}
