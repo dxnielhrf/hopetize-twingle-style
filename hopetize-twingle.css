@@ -307,6 +307,12 @@ textfield:has(#postal_code)>.input-wrapper{width:33.3333%!important}
 textfield:has(#city)>.input-wrapper{width:66.6667%!important}
 
 /* v14: keine öffentlichen Namen/Nachrichten – Spendenliste zeigt nur Betrag + Zeitpunkt (Missbrauch/Werbung vermeiden) */
-donator,.event-donator{display:none!important}
+/* (v16: wieder sichtbar, siehe unten) */
 /* v15: Twingles eigene Spenderliste unter dem Formular ausblenden (die Weihnachtsseite zeigt die neuesten Spenden selbst) */
 project-donators,.project-donators{display:none!important}
+/* v16: Name bei Zustimmung wieder erlaubt (Website zeigt nur "Vorname N."), Nachricht bleibt aus */
+donator,.event-donator{display:block!important}
+donator messagefield{display:none!important}
+donator textfield>.input-wrapper{width:100%!important;float:none!important}
+label[for="showDonation"]>span{font-size:0!important}
+label[for="showDonation"]>span::after{content:"Ja, mein Vorname darf bei den neuesten Spenden auf der Aktionsseite erscheinen.";font-size:.9375rem;line-height:1.45}
