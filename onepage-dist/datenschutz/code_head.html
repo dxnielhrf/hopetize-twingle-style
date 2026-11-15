@@ -320,9 +320,9 @@ new IntersectionObserver(function (e) { var was = fOn; fOn = e[0].isIntersecting
 function belt(view, track, speed) {
 if (!view || !track || !track.children.length) return;
 var orig = Array.prototype.slice.call(track.children);
-var add = function () { orig.forEach(function (n) { var c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('data-rv'); track.appendChild(c); }); };
+var add = function () { orig.forEach(function (n) { var c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('data-rv'); if (c.tagName === 'A') c.tabIndex = -1; track.appendChild(c); }); };
 add(); add();
-var setW = 0, pos = 0, v = 0, f = 1, hov = false, dr = null, on = false, last = 0;
+var setW = 0, pos = 0, v = 0, f = 1, hov = false, dr = null, on = false, last = 0, dragged = false;
 var meas = function () { setW = track.children[orig.length].offsetLeft - track.children[0].offsetLeft; };
 meas(); W.addEventListener('resize', meas);
 pos = view.getBoundingClientRect().left - view.parentNode.getBoundingClientRect().left; // erste Karte startet buendig, nicht angeschnitten
@@ -337,14 +337,15 @@ requestAnimationFrame(tick);
 };
 new IntersectionObserver(function (e) { var was = on; on = e[0].isIntersecting; if (on && !was) { last = performance.now(); requestAnimationFrame(tick); } }).observe(view);
 if (FINE) { view.addEventListener('mouseenter', function () { hov = true; }); view.addEventListener('mouseleave', function () { hov = false; }); }
-view.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.button) return; dr = { x: e.clientX, y: e.clientY, last: e.clientX, id: e.pointerId, h: null }; v = 0; });
+view.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.button) return; dragged = false; dr = { x: e.clientX, y: e.clientY, last: e.clientX, id: e.pointerId, h: null }; v = 0; });
 view.addEventListener('pointermove', function (e) {
 if (!dr) return;
 if (dr.h === null) { var ax = Math.abs(e.clientX - dr.x), ay = Math.abs(e.clientY - dr.y); if (ax < 4 && ay < 4) return; dr.h = ax > ay; if (dr.h) { view.setPointerCapture(dr.id); view.classList.add('is-dragging'); } }
 if (!dr.h) return;
 var dx = e.clientX - dr.last; dr.last = e.clientX; pos -= dx; v = clamp(v * 0.4 + dx * 0.6, -60, 60);
 });
-var up = function () { if (!dr) return; if (!dr.h) v = 0; dr = null; view.classList.remove('is-dragging'); };
+var up = function () { if (!dr) return; if (!dr.h) v = 0; else dragged = true; dr = null; view.classList.remove('is-dragging'); };
+view.addEventListener('click', function (e) { if (dragged) { e.preventDefault(); e.stopPropagation(); } dragged = false; }, true); // Ziehen oeffnet keinen Logo-Link
 view.addEventListener('pointerup', up); view.addEventListener('pointercancel', up);
 view.addEventListener('dragstart', function (e) { e.preventDefault(); });
 }

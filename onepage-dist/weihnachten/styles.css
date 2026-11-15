@@ -233,6 +233,7 @@ label{margin-bottom:5px;font-weight:bold;display:block}
 .pill_avatar{object-fit:cover;border:.04em solid #fff;border-radius:50%;flex-shrink:0;width:.664em;max-width:none;height:.664em;margin-right:-.186em;box-shadow:0 2px 4px #2e18461a}
 .pill_avatar.is-last{margin-right:0}
 .voices_slider{padding-top:.5em;padding-bottom:1.5em;position:relative;overflow:hidden}
+.logo_tile{background-color:#fff;border:1px solid #ece3f7;border-radius:1.5em;flex:none;justify-content:center;align-items:center;width:17em;height:7em;display:flex;box-shadow:0 10px 30px -22px #4e2e7159}
 .donate_modal{z-index:90;pointer-events:none;visibility:hidden;justify-content:center;align-items:center;padding:1.5em;display:flex;position:fixed;inset:0}
 @media screen and (max-width: 991px){.padding-global{padding-left:2.5em;padding-right:2.5em}
 .padding-vertical{padding-top:5em;padding-bottom:5em}
@@ -321,6 +322,7 @@ label{margin-bottom:5px;font-weight:bold;display:block}
 .footer_bottom{grid-row-gap:.75em;flex-direction:column;align-items:flex-start;margin-top:2.5em}
 .check-item{font-size:1.0625em}
 .pill-wrap.is-hide-mobile{display:none}
+.logo_tile{border-radius:1em;width:11em;height:4.75em}
 .donate_modal{align-items:flex-end;padding:4.5em 0 0}
 }
 :root{--purple:#61328c;--purple-2:#7647aa;--purple-deep:#3a2156;--ink:#242321;--ink-2:#1c1721;--text:#4a4152;--muted:#8c8296;--lilac:#f1e5ff;--lilac-bg:#f6f2fc;--lilac-line:#e2d5f4;--quote:#ebb7ff;--orange:#e96f3c;--orange-2:#f48a4a;--yellow:#f2c74f;--footer:#2d1844;--white:#ffffff}
@@ -528,7 +530,7 @@ html.js .quote_card:not(.is-inview) .quote_photo{transform:scale(.7);opacity:0}
 .quote_photo{transition:transform 1.3s var(--ease-expo) .15s,opacity .8s var(--ease-out) .15s}
 :root{--ease-hov:cubic-bezier(.45,0,.2,1)}
 html.js [data-rv].is-rv-done{transition:transform .8s var(--ease-hov),box-shadow .8s var(--ease-hov),background .7s var(--ease-hov),background-color .7s var(--ease-hov),opacity .6s var(--ease-hov)!important;transition-delay:0s!important}
-@media (hover:hover){.step_card,.impact_card,.button{transition-timing-function:var(--ease-hov)!important;transition-duration:.8s!important}
+@media (hover:hover){.step_card,.impact_card,.logo_tile,.button{transition-timing-function:var(--ease-hov)!important;transition-duration:.8s!important}
 .step_card:hover .step_img{transition:transform 1.4s var(--ease-hov)}
 .pill.is-photo{transition:transform .8s var(--ease-hov)}
 .nav_link{transition:opacity .5s var(--ease-hov),color .5s var(--ease-hov)}
@@ -557,6 +559,9 @@ html.js [data-rv].is-rv-done{transition:transform .8s var(--ease-hov),box-shadow
 .voice_card:nth-child(even){margin-top:2.5em}
 @media (max-width:767px){.voice_card:nth-child(even){margin-top:1.25em}
 }
+@media (hover:hover){.logo_tile:hover{transform:translateY(-.25em);box-shadow:0 18px 36px -18px rgba(78,46,113,.35)}
+}
+.logo_tile{transition:transform .8s var(--ease-hov),box-shadow .8s var(--ease-hov)}
 @media (max-width:767px){.pill-wrap.is-hide-mobile{display:inline-flex!important}
 .hero_line:not(:last-child){margin-right:.22em}
 .hero_heading .pill-wrap,.heading-style-h2 .pill-wrap{font-size:.86em}
@@ -566,7 +571,8 @@ html.js .heading-style-h2 .pill-wrap:not(.is-top).is-pill-open{margin-right:.26e
 .donate_modal{transition:visibility 0s .7s}
 html.is-modal-open .donate_modal{visibility:visible;pointer-events:auto;transition:visibility 0s}
 html.is-modal-open body{overflow:hidden}
-@media (max-width:767px){.voices_slider{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:1.25em;padding-left:1.25em;padding-right:1.25em;touch-action:auto;cursor:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+@media (max-width:767px){.logo_tile{width:auto}
+.voices_slider{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:1.25em;padding-left:1.25em;padding-right:1.25em;touch-action:auto;cursor:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .voices_slider::-webkit-scrollbar{display:none}
 .voice_card{scroll-snap-align:start}
 }
@@ -661,6 +667,8 @@ html.hv-lock{overflow:hidden}
 @media (min-width:1440px){body{font-size:16px}
 }
 .donate_form[data-twingle-slot] .tw-frame{overflow:hidden}
+a.logo_tile{text-decoration:none;color:inherit;cursor:pointer}
+a.logo_tile:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
