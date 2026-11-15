@@ -813,7 +813,7 @@ a.chip.is-link.is-light,a.chip.is-link.is-light:visited{color:var(--_colors---pu
 .impact_grid.is-4 .wx-cta{font-size:.8125em}
 }
 .business_text,.impact_text,.step_text{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
-.voice_card.is-scallop,.quote_bg.is-scallop{-webkit-mask:radial-gradient(var(--r) at 50% 50%,#000 97%,#0000) 0 0/var(--tx) var(--ty) repeat,linear-gradient(#000 0 0) 50%/calc(100% - var(--tx)) calc(100% - var(--ty)) no-repeat;mask:radial-gradient(var(--r) at 50% 50%,#000 97%,#0000) 0 0/var(--tx) var(--ty) repeat,linear-gradient(#000 0 0) 50%/calc(100% - var(--tx)) calc(100% - var(--ty)) no-repeat}
+.voice_card.is-scallop,.quote_bg.is-scallop{-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:0 0;mask-position:0 0}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}

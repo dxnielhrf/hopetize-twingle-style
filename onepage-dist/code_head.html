@@ -546,23 +546,33 @@ sec.insertBefore(snow, sec.firstChild);
 });
 })();
 });</script><script>document.addEventListener('DOMContentLoaded',function(){
-/* Gewellte Kanten (.voice_card, .quote_bg): Die Maske kachelt Kreise mit "round". Safari setzt "round" nicht sauber um
-und schneidet die letzte Welle rechts/unten ab. Darum rechnen wir pro Element die Kachelgroesse so aus, dass eine
-ganze Zahl Wellen exakt hineinpasst (--tx/--ty), und die Maske nutzt "repeat" (CSS in styles.css). Die Groesse der
-Elemente bleibt unveraendert (wichtig fuers Laufband der Stimmen). */
+/* Gewellte Kanten (.voice_card, .quote_bg): Eine gekachelte CSS-Maske (radial-gradient + repeat/round) rundet Safari
+pro Kachel auf ganze Pixel; die Abweichung summiert sich und die letzten Wellen rechts/unten werden abgeschnitten.
+Darum zeichnen wir pro Element EINE SVG-Maske in exakter Groesse: Innenrechteck + Kreise entlang der Kanten, bei
+ganzzahliger Wellenzahl pro Seite. CSS in styles.css (.is-scallop: mask-size 100% 100%). Elementgroesse bleibt gleich. */
 (function () {
 'use strict';
-function tileOf(el) {
+function radiusOf(el) {
 var cs = getComputedStyle(el), fs = parseFloat(cs.fontSize) || 16, r = cs.getPropertyValue('--r').trim();
-var px = /em$/.test(r) ? parseFloat(r) * fs : parseFloat(r);
-return px > 0 ? 2 * px : 0;
+return /em$/.test(r) ? parseFloat(r) * fs : parseFloat(r) || 0;
+}
+function f(n) { return Math.round(n * 100) / 100; }
+function maskFor(w, h, r) {
+var nx = Math.max(1, Math.floor(w / (2 * r))), ny = Math.max(1, Math.floor(h / (2 * r)));
+var tx = w / nx, ty = h / ny, d = '', i;
+function c(x, y) { d += 'M' + f(x - r) + ' ' + f(y) + 'a' + r + ' ' + r + ' 0 1 0 ' + 2 * r + ' 0a' + r + ' ' + r + ' 0 1 0 ' + -2 * r + ' 0'; }
+for (i = 0; i < nx; i++) { c((i + 0.5) * tx, ty / 2); c((i + 0.5) * tx, h - ty / 2); }
+for (i = 1; i < ny - 1; i++) { c(tx / 2, (i + 0.5) * ty); c(w - tx / 2, (i + 0.5) * ty); }
+var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none">' +
+'<rect x="' + f(tx / 2) + '" y="' + f(ty / 2) + '" width="' + f(w - tx) + '" height="' + f(h - ty) + '"/><path d="' + d + '"/></svg>';
+return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
 }
 function snap() {
 [].forEach.call(document.querySelectorAll('.voice_card, .quote_bg'), function (el) {
-var t = tileOf(el), w = el.offsetWidth, h = el.offsetHeight; // offset*: Layoutgroesse, unabhaengig von Animationen (transform)
-if (!t || !w || !h) return;
-el.style.setProperty('--tx', (w / Math.max(1, Math.floor(w / t))) + 'px');
-el.style.setProperty('--ty', (h / Math.max(1, Math.floor(h / t))) + 'px');
+var r = radiusOf(el), w = el.offsetWidth, h = el.offsetHeight; // offset*: Layoutgroesse, unabhaengig von Animationen (transform)
+if (!r || !w || !h || el._sc === w + 'x' + h) return;
+el._sc = w + 'x' + h;
+el.style.webkitMaskImage = el.style.maskImage = maskFor(w, h, r);
 el.classList.add('is-scallop');
 });
 }
