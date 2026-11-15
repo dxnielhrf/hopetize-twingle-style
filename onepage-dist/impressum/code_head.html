@@ -364,7 +364,7 @@ html.classList.remove('is-modal-open'); modal.setAttribute('aria-hidden', 'true'
 if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
 };
 d.addEventListener('click', function (e) {
-var a = e.target.closest && e.target.closest('a.button[href="#weihnachten"], a.button[href="#spenden"]:not(.is-donate), a.sticky-donate');
+var a = e.target.closest && e.target.closest('a.button[href="#weihnachten"], a.button[href="#spenden"]:not(.is-donate), a.sticky-donate, a[data-amount]');
 if (!a || modal.contains(a)) return;
 e.preventDefault(); e.stopImmediatePropagation(); openModal(a);
 }, true);

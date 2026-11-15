@@ -392,7 +392,7 @@ html.classList.remove('is-modal-open'); modal.setAttribute('aria-hidden', 'true'
 if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
 };
 d.addEventListener('click', function (e) {
-var a = e.target.closest && e.target.closest('a.button[href="#weihnachten"], a.button[href="#spenden"]:not(.is-donate), a.sticky-donate');
+var a = e.target.closest && e.target.closest('a.button[href="#weihnachten"], a.button[href="#spenden"]:not(.is-donate), a.sticky-donate, a[data-amount]');
 if (!a || modal.contains(a)) return;
 e.preventDefault(); e.stopImmediatePropagation(); openModal(a);
 }, true);
@@ -473,6 +473,42 @@ function seenCheck() { try { return sessionStorage.getItem('ht-loader') === '1' 
 var fontsReady = d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve();
 Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1400); })]).then(function () { requestAnimationFrame(boot); });
 var rz; W.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { heads.forEach(lineIndex); moveInd(activeLink); }, 200); });
+})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
+/* Weihnachtliche Deko fuer Bereiche mit [data-xmas] (Startseite #weihnachten, Hero der Weihnachtsseite):
+Lichterkette oben am Rand und leiser Schneefall. Rein dekorativ (aria-hidden), stoert keine Klicks.
+Bei "Bewegung reduzieren" haengt die Lichterkette still und es schneit nicht. */
+(function () {
+'use strict';
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var COLORS = ['#f2c74f', '#f48a4a', '#9b6fd1', '#e85d75', '#7fc8a9'];
+[].forEach.call(document.querySelectorAll('[data-xmas]'), function (sec) {
+var W = 1200, H = 70, swags = 3, bulbs = 27, path = 'M0 6', pts = [];
+for (var s = 0; s < swags; s++) {
+var x0 = s * W / swags, x1 = (s + 1) * W / swags, xm = (x0 + x1) / 2;
+path += ' Q' + xm + ' ' + (H - 14) + ' ' + x1 + ' 6';
+}
+for (var i = 0; i < bulbs; i++) {
+var t = (i + 0.5) / bulbs * swags, k = Math.floor(t), u = t - k;            // Bogen k, Position u (0..1)
+var bx = (k + u) * W / swags, by = 6 + 2 * u * (1 - u) * (H - 20);          // quadratische Bezierkurve
+pts.push('<span class="xl-b" style="left:' + (bx / W * 100).toFixed(2) + '%;top:' + by.toFixed(1) + 'px;--c:' + COLORS[i % COLORS.length] + ';--d:' + ((i * 0.37) % 1.8).toFixed(2) + 's"></span>');
+}
+var lights = document.createElement('div');
+lights.className = 'xmas-lights'; lights.setAttribute('aria-hidden', 'true');
+lights.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none"><path d="' + path + '" fill="none" stroke="#5d4a6e" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>' +
+pts.join('');
+sec.insertBefore(lights, sec.firstChild);
+if (RM) return;
+var snow = document.createElement('div'), n = window.innerWidth < 768 ? 14 : 30, html = '';
+snow.className = 'xmas-snow'; snow.setAttribute('aria-hidden', 'true');
+for (var j = 0; j < n; j++) {
+var size = 4 + Math.random() * 6;
+html += '<span style="left:' + (Math.random() * 100).toFixed(1) + '%;width:' + size.toFixed(1) + 'px;height:' + size.toFixed(1) + 'px;' +
+'animation-duration:' + (9 + Math.random() * 10).toFixed(1) + 's,' + (3 + Math.random() * 3).toFixed(1) + 's;animation-delay:-' + (Math.random() * 18).toFixed(1) + 's,-' + (Math.random() * 4).toFixed(1) + 's;opacity:' + (0.35 + Math.random() * 0.45).toFixed(2) + '"></span>';
+}
+snow.innerHTML = html;
+sec.insertBefore(snow, sec.firstChild);
+});
 })();
 });</script><script>document.addEventListener('DOMContentLoaded',function(){
 (function(){var d=document,q=function(s){return Array.prototype.slice.call(d.querySelectorAll(s))};

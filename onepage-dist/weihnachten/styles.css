@@ -691,6 +691,85 @@ a.logo_tile:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
 .wx-stage{grid-template-columns:auto 1fr auto;grid-template-areas:"dot t a";padding:.75em .9em}
 .wx-stage-a{font-size:1.0625em;white-space:nowrap}
 }
+.impact_grid.is-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.impact_card.is-link{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit;cursor:pointer}
+.impact_card.is-link .impact_text{flex:1}
+.impact_cta{margin-top:.9em;color:#61328c;font-weight:700;font-size:.9375em}
+.impact_card.is-link:focus-visible{outline:3px solid #61328c;outline-offset:4px}
+@media (hover:hover){.impact_card.is-link:hover{transform:translateY(-.3em);box-shadow:0 28px 56px -20px rgba(78,46,113,.3);border-color:#d9c6f0}
+}
+.impact_card.is-link[data-amount=""] .impact_amount{font-size:1.6em;line-height:1.25;padding:.35em 0}
+.steps_grid.is-text{margin-top:0}
+.steps_grid.is-text .step_body{padding:1.75em 1.75em 2em}
+.steps_grid.is-text .step_num{margin-top:0;margin-bottom:1em}
+.xmas-teaser{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:center;gap:2.5em;margin-top:1em;padding:2.5em;border-radius:2em;text-decoration:none;color:#fff;background:linear-gradient(135deg,#6C3C9E,#5D2E89);box-shadow:0 30px 60px -24px rgba(78,46,113,.55);transition:transform .8s var(--ease-hov,cubic-bezier(.22,1,.36,1))}
+.xmas-teaser .eyebrow{color:#f2c74f}
+.xmas-teaser_title{font-size:2.4em;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin:.35em 0 .55em}
+.xmas-teaser_list{list-style:none;margin:0 0 1.6em;padding:0;display:grid;gap:.5em;font-size:1.0625em}
+.xmas-teaser_list li{padding-left:1.6em;position:relative}
+.xmas-teaser_list li::before{content:"";position:absolute;left:0;top:.35em;width:.8em;height:.8em;border-radius:50%;background:#f2c74f;box-shadow:0 0 0 .22em rgba(242,199,79,.25)}
+.xmas-teaser_btn{display:inline-flex;align-items:center;gap:.6em;padding:1em 1.6em;border-radius:100px;background:#fff;color:#4b2370;font-weight:700;font-size:1.0625em;box-shadow:0 12px 26px -12px rgba(0,0,0,.35)}
+.xmas-teaser_btn span{transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.xmas-teaser_preview{border-radius:1.25em;overflow:hidden;background:#fff;box-shadow:0 24px 50px -20px rgba(20,8,40,.55);transform:rotate(1.5deg);transition:transform .8s var(--ease-hov,cubic-bezier(.22,1,.36,1))}
+.xmas-teaser_bar{display:flex;align-items:center;gap:.4em;padding:.6em .9em;background:#f3edfa;color:#6b5a7e;font-size:.8125em;font-weight:600}
+.xmas-teaser_bar i{width:.6em;height:.6em;border-radius:50%;background:#d9c6f0}
+.xmas-teaser_bar span{margin-left:.6em;padding:.2em .8em;border-radius:100px;background:#fff}
+.xmas-teaser_img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.xmas-teaser:focus-visible{outline:3px solid #61328c;outline-offset:5px}
+@media (hover:hover){.xmas-teaser:hover{transform:translateY(-.3em)}
+.xmas-teaser:hover .xmas-teaser_btn span{transform:translateX(.3em)}
+.xmas-teaser:hover .xmas-teaser_preview{transform:rotate(0)}
+}
+@media (max-width:991px){.impact_grid.is-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.xmas-teaser{grid-template-columns:1fr;gap:1.75em;padding:2em}
+.xmas-teaser_preview{max-width:30em;transform:none}
+}
+@media (max-width:767px){.impact_grid.is-4{gap:.75em}
+.impact_card.is-link{padding:1.25em .75em}
+.impact_card.is-link .impact_amount{font-size:2em}
+.impact_card.is-link[data-amount=""] .impact_amount{font-size:1.15em}
+.impact_card.is-link .impact_text{font-size:.875em}
+.impact_cta{font-size:.8125em}
+.steps_grid.is-text{grid-template-columns:1fr 1fr;gap:.75em}
+.steps_grid.is-text .step_body{padding:1.1em 1em 1.25em}
+.steps_grid.is-text .step_text{font-size:.875em}
+.xmas-teaser{padding:1.6em 1.4em}
+.xmas-teaser_title{font-size:1.75em}
+.xmas-teaser_preview{display:none}
+}
+[data-xmas]{position:relative;overflow:hidden}
+[data-xmas]>.padding-global{position:relative;z-index:1}
+.xmas-lights{position:absolute;left:0;right:0;top:0;height:70px;z-index:2;pointer-events:none}
+.xmas-lights svg{position:absolute;inset:0;width:100%;height:100%}
+.xl-b{position:absolute;width:10px;height:15px;margin-left:-5px;margin-top:4px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:var(--c);box-shadow:0 0 10px 2px color-mix(in srgb,var(--c) 70%,transparent);animation:xl-twinkle 1.8s ease-in-out infinite;animation-delay:var(--d)}
+.xl-b::before{content:"";position:absolute;left:2px;top:-4px;width:6px;height:5px;border-radius:1px;background:#5d4a6e}
+@keyframes xl-twinkle{0%,100%{opacity:1;filter:brightness(1.05)}
+50%{opacity:.55;filter:brightness(.8)}
+}
+.xmas-snow{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.xmas-snow span{position:absolute;top:-12px;border-radius:50%;background:#cbb7ea;animation-name:xs-fall,xs-sway;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;animation-direction:normal,alternate}
+@keyframes xs-fall{to{transform:translateY(var(--xs-h,1400px))}
+}
+@keyframes xs-sway{from{margin-left:-14px}
+to{margin-left:14px}
+}
+.section_xmas[data-xmas]{--xs-h:2600px}
+.nav_link[href$="#weihnachten"],.nav_mobile-link[href$="#weihnachten"]{position:relative}
+.nav_link[href$="#weihnachten"]::before,.nav_mobile-link[href$="#weihnachten"]::before{content:"";position:absolute;left:.5em;top:-.15em;width:1.15em;height:1em;transform:rotate(-22deg);pointer-events:none;z-index:2;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 34'%3E%3Cpath d='M6 26C9 14 17 5 27 4c5 0 8 4 9 10l-6 2c-1-4-3-6-5-5-5 2-9 9-11 15z' fill='%23d93a3a'/%3E%3Crect x='2' y='24' width='26' height='8' rx='4' fill='%23fff' stroke='%23e9e1f3'/%3E%3Ccircle cx='33' cy='16' r='4.5' fill='%23fff' stroke='%23e9e1f3'/%3E%3C/svg%3E") center/contain no-repeat}
+@media (prefers-reduced-motion:reduce){.xl-b{animation:none}
+}
+.impact_card.is-link .impact_text{width:100%;text-align:center}
+@media (max-width:767px){.steps_grid.is-text .step_title{font-size:1.125em}
+.steps_grid.is-text .step_num{width:2em;height:2em;margin-bottom:.75em}
+}
+.nav_mobile-link[href$="#weihnachten"]::before{left:-.12em;top:-.3em;width:.7em;height:.6em}
+.wx-hero>.xmas-lights{top:86px}
+@media (max-width:991px){.wx-hero>.xmas-lights{top:76px;height:56px}
+}
+@media (max-width:767px){.xmas-lights .xl-b:nth-of-type(even){display:none}
+.wx-hero>.xmas-lights{top:70px;height:50px}
+.wx-hero .wrapper_hero{padding-top:1.5em}
+}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
