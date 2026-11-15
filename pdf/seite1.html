@@ -1,0 +1,90 @@
+<!doctype html>
+<!-- Seite 1 der Spendenbestätigung (Weihnachtsaktion 2026), nachgebaut nach dem Original-PDF (pdf/original-3-seiten.pdf).
+     Geändert gegenüber dem Original nur der Absatz "Deine Spendenquittung" (Noels Formulierung vom 11.11.: "Auf Wunsch … nach Absprache").
+     Render: build-pdf.py druckt diese Seite per Chrome und setzt sie vor die Originalseiten 2 und 3 (mit Formularfeldern). -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Hopetize · Spendenbestätigung Weihnachtsaktion 2026</title>
+<style>
+@font-face{font-family:Figtree;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Figtree;font-weight:600;src:url(https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Figtree;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Figtree;font-weight:800;src:url(https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-800-normal.woff2) format("woff2")}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Figtree,Arial,sans-serif;color:#2b2233;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;padding:60px 64px 0;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{width:224px;display:block}
+.pill{font-size:12.5px;font-weight:700;color:#4b2370;padding:6px 14px;border-radius:999px;background:linear-gradient(90deg,#ead9fb,#fdd9c3)}
+h1{margin:34px 0 14px;font-size:29px;line-height:1.18;font-weight:800;letter-spacing:-.02em;color:#211a2a}
+h1 span{color:#61328c;display:block}
+.lead{margin:0 0 26px;font-size:14px;line-height:1.55;color:#3b3245}
+.lead b{color:#211a2a}
+h2{margin:0 0 12px;font-size:19px;font-weight:800;letter-spacing:-.01em;color:#211a2a}
+h2 span{color:#61328c}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
+.step{background:#f4eefb;border-radius:13px;padding:13px 12px 15px;min-height:131px}
+.num{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;color:#3b0f09;background:linear-gradient(#f6d76b,#e8b935);margin-bottom:9px}
+.step b{display:block;font-size:12.5px;color:#211a2a;margin-bottom:5px}
+.step p{margin:0;font-size:11px;line-height:1.45;color:#3b3245}
+.card{display:grid;grid-template-columns:42px 1fr;gap:16px;background:#f4eefb;border-radius:17px;padding:17px 22px 19px;margin-bottom:13px}
+.ic{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:15px;color:#3b0f09;background:linear-gradient(#f6d76b,#e8b935);margin-top:6px}
+.card h3{margin:0 0 6px;font-size:16.5px;font-weight:800;color:#3b1f5c}
+.card p{margin:0;font-size:13px;line-height:1.6;color:#3b3245}
+.card p b{color:#211a2a}
+.biz{display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;border:1.5px dashed #9b6fd1;border-radius:17px;padding:17px 20px 19px 20px;margin-top:4px}
+.biz h3{margin:0 0 6px;font-size:16px;font-weight:800;color:#3b1f5c}
+.biz p{margin:0;font-size:12.5px;line-height:1.6;color:#3b3245}
+.btn{display:inline-block;padding:10px 20px;border-radius:999px;background:#5d2e89;color:#fff;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
+.foot{position:absolute;left:64px;right:64px;bottom:42px;display:flex;justify-content:space-between;border-top:1px solid #e9e1f3;padding-top:12px;font-size:10.5px;color:#7a6f86}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <img class="logo" src="../hopetize-logo.png" alt="Hopetize Kinderkrebshilfe e. V.">
+    <div class="pill">Weihnachtsaktion 2026 · Spendenbestätigung</div>
+  </div>
+
+  <h1>Danke für deine Spende.<span>Sie wird zu einem Geschenk.</span></h1>
+  <p class="lead">Deine Spende für die Weihnachtsaktion 2026 ist bei uns angekommen. Damit hilfst du, dass Kinder und Jugendliche auf Kinderkrebsstationen an Weihnachten nicht leer ausgehen, dieses Jahr in <b>16 Kinderkliniken von Freiburg bis Leipzig.</b></p>
+
+  <h2>Das passiert <span>mit deiner Spende</span></h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><b>Wünsche sammeln</b><p>Die Stationen schicken uns die Wünsche der Kinder.</p></div>
+    <div class="step"><div class="num">2</div><b>Einkaufen</b><p>Wir kaufen selbst ein, möglichst bei Händlern aus der Region.</p></div>
+    <div class="step"><div class="num">3</div><b>Packen</b><p>Gemeinsam mit vielen Helferinnen und Helfern in Günzburg.</p></div>
+    <div class="step"><div class="num">4</div><b>Übergeben</b><p>Mitte Dezember bringen wir alles persönlich auf die Stationen.</p></div>
+  </div>
+
+  <div class="card">
+    <div class="ic">§</div>
+    <div>
+      <h3>Deine Spendenquittung</h3>
+      <p>Auf Wunsch stellen wir dir nach Absprache gerne eine Spendenquittung aus. Schreib uns dazu einfach an <b>hallo@hopetize.de</b>, am besten gleich mit deinem Namen und deiner Anschrift.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ic">♥</div>
+    <div>
+      <h3>Bleib dabei</h3>
+      <p>Auf Instagram <b>@hopetize</b> zeigen wir, wie eingekauft, gepackt und übergeben wird. Den aktuellen Spendenstand findest du auf <b>hopetize.de/weihnachten</b>. Wenn du die Seite teilst, hilfst du uns ein zweites Mal.</p>
+    </div>
+  </div>
+
+  <div class="biz">
+    <div>
+      <h3>Du spendest als Unternehmen?</h3>
+      <p>Dann sind die Seiten 2 und 3 für euch: Dort steht, wie es mit Zuwendungsbestätigung, Logo und Übergabe weitergeht, inklusive Rückmeldung zum Ausfüllen. Privatpersonen können die folgenden Seiten überspringen.</p>
+    </div>
+    <span class="btn">weiter auf Seite 2</span>
+  </div>
+
+  <div class="foot"><span>Hopetize Kinderkrebshilfe e. V. · VR 201352, Amtsgericht Memmingen</span><span>Seite 1 von 3</span></div>
+</div>
+</body>
+</html>
