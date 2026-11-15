@@ -770,6 +770,24 @@ to{margin-left:14px}
 .wx-hero>.xmas-lights{top:70px;height:50px}
 .wx-hero .wrapper_hero{padding-top:1.5em}
 }
+a.tag.is-link{text-decoration:none;color:inherit;cursor:pointer;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s}
+.tag_arrow{margin-left:.15em;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+@media (hover:hover){a.tag.is-link:hover{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(225,110,62,.5)}
+a.tag.is-link:hover .tag_arrow{transform:translateX(3px)}
+}
+a.tag.is-link:focus-visible{outline:3px solid #61328c;outline-offset:3px}
+.wx-barometer:has(.barometer_stretch){position:relative;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.barometer_stretch{position:absolute;inset:0;z-index:3;border-radius:inherit}
+.barometer_stretch:focus-visible{outline:3px solid #f2c74f;outline-offset:4px}
+.barometer_more{display:inline-block;margin-left:.6em;padding:.15em .7em;border-radius:100px;background:rgba(255,255,255,.16);font-weight:700;white-space:nowrap}
+@media (hover:hover){.wx-barometer:has(.barometer_stretch:hover){transform:translateY(-3px)}
+.wx-barometer:has(.barometer_stretch:hover) .barometer_more{background:#f2c74f;color:#3b0f09}
+}
+@media (max-width:767px){.barometer_more{display:table;margin:.5em 0 0}
+}
+.impact_card.is-custom .impact_amount{font-size:1.6em;line-height:1.25;padding:.35em 0}
+@media (max-width:767px){.impact_card.is-custom .impact_amount{font-size:1.15em}
+}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
