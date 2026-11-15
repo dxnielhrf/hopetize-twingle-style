@@ -7,13 +7,7 @@ beantwortet nur diese URL (auch mit ?stand=…) aus einem gemeinsamen Promise; ?
 var TW = 'https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form';
 var PREVIEW = /[?&]vorschau=1\b/.test(location.search);
 var SAMPLE = { project_target_amount: 18450, project_target_donators: 214, project_donations: [
-{ name: 'Julia', message: 'Ihr macht so einen Unterschied. Frohe Weihnachten an alle Kinder auf Station!', sample: 1 },
-{ name: 'Familie B.', message: 'Wir denken an euch. Ganz viel Kraft und ein leuchtendes Weihnachtsfest.', sample: 1 },
-{ name: 'Autohaus (Beispiel)', message: 'Statt Kundengeschenken spenden wir dieses Jahr an Hopetize.', sample: 1 },
-{ name: 'Tom', message: 'Für ein Spielzimmer voller neuer Spiele.', sample: 1 },
-{ name: 'Anonym', message: '', sample: 1 },
-{ name: 'Sarah K.', message: 'Ihr seid nicht allein. Alles Liebe aus Ulm.', sample: 1 },
-{ name: 'Lena', message: 'Frohe Weihnachten aus Günzburg!', sample: 1 }
+{ amount: '40', sample: 1 }, { amount: '120', sample: 1 }, { amount: '25', sample: 1 }, { amount: '500', sample: 1 }, { amount: '40', sample: 1 }, { amount: '80', sample: 1 }
 ] };
 var F = window.fetch, p = null;
 window.wxPreview = PREVIEW;
@@ -597,16 +591,15 @@ function renderMsgs() {
 var box = $('#wxMsgs'), more = $('#wxMore');
 if (!msgs.length) {
 box.className = '';
-box.innerHTML = '<div class="wx-empty"><h4 class="wx-card-title">Hier erscheinen eure Nachrichten.</h4><p class="wx-muted">Wer spendet, kann den Kindern ein paar Worte schreiben. Sei die erste Person, deren Nachricht hier steht.</p>' +
+box.innerHTML = '<div class="wx-empty"><h4 class="wx-card-title">Hier erscheinen die neuesten Spenden.</h4><p class="wx-muted">Sei die erste Person, deren Spende hier auftaucht.</p>' +
 '<a href="#spenden" class="button w-inline-block"><div class="button_label"><div class="button_text">Jetzt spenden</div><div class="button_text is-clone">Jetzt spenden</div></div><div data-i="heart" data-s="btn" data-c="white" class="ico"></div></a></div>';
 more.hidden = true; return;
 }
 box.className = 'wx-msgs';
 box.innerHTML = msgs.slice(0, shown).map(function (m) {
-var n = (m.name || '').trim() || 'Anonym';
-var ini = n.replace(/[^\p{L}\s]/gu, '').split(/\s+/).filter(Boolean).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase() || '♥';
-return '<article class="wx-msg' + (m.sample ? ' is-sample' : '') + '"><p>' + (m.text ? esc(m.text) : 'Hat gespendet.') + '</p>' +
-'<footer><span class="wx-msg-av" aria-hidden="true">' + esc(ini) + '</span><span class="wx-msg-who">' + esc(n) + '<small>' + esc(m.sample ? 'Beispiel' : ago(m.time)) + '</small></span></footer></article>';
+var amt = +m.amount > 0 ? eur(+m.amount) : 'Eine Spende';
+return '<article class="wx-msg wx-don' + (m.sample ? ' is-sample' : '') + '"><span class="wx-msg-av" aria-hidden="true">♥</span>' +
+'<span class="wx-msg-who">' + esc(amt) + ' gespendet<small>' + esc(m.sample ? 'Beispiel' : ago(m.time)) + '</small></span></article>';
 }).join('');
 more.hidden = msgs.length <= shown;
 $$('.wx-msg').forEach(function (el, i) { reveal(el, '', (i % 6) * 90); });
@@ -620,8 +613,7 @@ var line = t.split('\n').filter(function (l) { return l.indexOf('__twingle_proje
 var o = JSON.parse(line.trim().replace(/^var __twingle_projectData\s*=\s*/, '').replace(/;\s*$/, ''));
 render(+o.project_target_amount || 0, +o.project_target_donators || 0);
 msgs = (o.project_donations || []).map(function (x) {
-var dd = x.data || x; // twingle: Name/Nachricht stecken in x.data (nur gesetzt, wenn showDonation erlaubt)
-return { name: pick(dd, ['name', 'donator_name', 'display_name']), text: pick(dd, ['message', 'comment', 'text']), time: pick(x, ['timestamp', 'created_at', 'date', 'time']), sample: x.sample };
+return { amount: pick(x, ['amount']), time: pick(x, ['timestamp', 'created_at', 'date', 'time']), sample: x.sample }; // Namen/Nachrichten werden bewusst nicht gelesen
 });
 renderMsgs();
 }).catch(function () { d.documentElement.classList.add('wx-load-error'); renderMsgs(); });

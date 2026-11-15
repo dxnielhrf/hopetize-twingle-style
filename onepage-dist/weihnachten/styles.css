@@ -905,3 +905,6 @@ html.hv-lock .wx-dock,body.is-menu-open .wx-dock{transform:translateY(160%)}
 .wx-steps .step_title{font-size:1.125em}
 .wx-steps .step_text{font-size:.875em}
 }
+.wx-msg.wx-don{display:flex;align-items:center;gap:.9em;padding:1.1em 1.4em;margin-bottom:1em}
+.wx-msg.wx-don .wx-msg-av{color:#e16e3e;font-size:1.1em}
+.wx-msg.wx-don .wx-msg-who{font-size:1.0625em}
