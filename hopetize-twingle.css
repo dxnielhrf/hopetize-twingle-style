@@ -1,6 +1,10 @@
 /* Hopetize · Twingle-Formular im Design der neuen Website (v2)
    Einbinden: twingleMANAGER > Projekt > Darstellung > "Eigene CSS-Datei (URL)" */
-@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap');
+/* Figtree ohne Google Fonts (Datenschutz): Fontsource ueber jsDelivr */
+@font-face{font-family:"Figtree";font-weight:400;font-display:swap;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Figtree";font-weight:600;font-display:swap;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"Figtree";font-weight:700;font-display:swap;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"Figtree";font-weight:800;font-display:swap;src:url("https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-800-normal.woff2") format("woff2")}
 
 :root{
   --hz-purple:#61328C; --hz-purple-light:#7647AA; --hz-purple-ink:#3A2156;
@@ -204,4 +208,66 @@ project-donators h2,project-donators h3{font-weight:700!important;color:var(--hz
   amount label.radio{min-height:84px!important}
   .slider-input-wrapper .input-wrapper{flex-basis:96px}
 }
+/* =====================================================================
+   Figma-Look (v8): Vorlage "Online spenden" im Figma (Hopetize Homepage, 12.11.2026).
+   Schlichte Abschnittstitel statt Nummern, kompakte Pills, Radio-Zahlungsarten,
+   Beschriftung ueber den Feldern, schlichte Checkboxen.
+   ===================================================================== */
+/* Abschnittstitel */
+#label-transaction-amount,label.like-headline,.payment-wrapper h2{font-size:0!important;gap:0!important;margin:22px 0 10px!important}
+amount #label-transaction-amount{margin-top:4px!important}
+#label-transaction-amount::before,label.like-headline::before,.payment-wrapper h2::before{content:none!important;display:none!important}
+#label-transaction-amount::after,label.like-headline::after,.payment-wrapper h2::after{font-size:.9375rem;font-weight:700;color:var(--hz-ink);letter-spacing:0;line-height:1.3}
+#label-transaction-amount::after{content:"Betrag wählen"}
+label.like-headline::after{content:"Deine Angaben"}
+.payment-wrapper h2::after{content:"Zahlungsart"}
+
+/* Betrag: kompakte Pills, Haken links */
+amount .button-wrapper{gap:8px!important}
+amount label.radio{min-height:60px!important;padding:8px 6px!important;border-radius:14px!important;border:1.5px solid var(--hz-line-strong)!important;box-shadow:none!important;gap:2px}
+amount label.radio:hover{box-shadow:none!important;border-color:var(--hz-lilac-200)!important}
+amount label.radio strong{font-size:1.25rem!important;font-weight:700!important;letter-spacing:-.01em!important;color:var(--hz-ink)!important}
+amount label.radio small{font-size:.75rem!important;color:var(--hz-ink-muted)!important}
+amount input[type=radio]:checked+label.radio{border:2px solid var(--hz-purple)!important;background:var(--hz-lilac-100)!important;box-shadow:none!important;padding-left:26px!important}
+amount input[type=radio]:checked+label.radio strong{color:var(--hz-purple)!important}
+amount input[type=radio]:checked+label.radio::after{top:50%;left:10px;right:auto;width:18px;height:18px;transform:translateY(-50%);background-size:11px;box-shadow:none}
+amount button.button,amount button.button.inactive{min-height:52px!important;border-radius:14px!important;border:1.5px solid var(--hz-line-strong)!important;justify-content:flex-start!important;text-align:left!important;padding:0 16px!important;color:var(--hz-ink-muted)!important;font-weight:400!important;font-size:.9375rem!important}
+amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight:600!important}
+.slider-input-wrapper:has(#transaction-amount){border-radius:14px;background:#fff!important;border-color:var(--hz-line-strong)}
+
+/* Felder: Beschriftung ueber dem Feld */
+.input-wrapper input,.input-wrapper select{height:48px!important;border-radius:12px!important;font-size:.9375rem!important}
+.input-wrapper{position:relative}
+.input-wrapper label{position:static!important;transform:none!important;display:block!important;margin:0 0 6px!important;padding:0!important;font-weight:600!important;font-size:.875rem!important;color:var(--hz-ink)!important;opacity:1!important;background:none!important;line-height:1.3!important;top:auto!important;left:auto!important}
+.input-wrapper input::placeholder{color:#A69BB3!important;opacity:1}
+.input-wrapper.ng-invalid.ng-touched input{background:#FFF8F6!important}
+
+/* Unternehmen-Schalter und Checkboxen schlicht */
+.company .checkbox-toggle label{border:0!important;background:none!important;min-height:40px!important;padding:4px 0!important;font-weight:600!important}
+.company .checkbox-toggle label:hover,.checkbox-toggle input:checked+label{background:none!important;border:0!important}
+.checkboxbutton-wrapper{margin:6px 0!important}
+.checkboxbutton-wrapper label,.checkboxbutton-wrapper input:checked+label,.checkboxbutton-wrapper label:hover,.checkboxbutton-wrapper input:checked+label:hover{border:0!important;background:none!important;min-height:0!important;padding:6px 0!important;font-weight:400!important;font-size:.9375rem!important;color:var(--hz-ink-soft)!important}
+.checkboxbutton-wrapper label::before{width:20px;height:20px;border-radius:6px;border:1.5px solid #CBB8E3}
+
+/* Zahlungsart: Radio-Pills wie im Figma */
+.payment-component-wrapper .method-wrapper,.payment-component-wrapper .method-wrapper.recommendation-visible{gap:8px!important;padding-top:0!important}
+.payment-component-wrapper .method-wrapper payment-icons{display:none!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label{flex-direction:row!important;align-items:center!important;flex-wrap:wrap;gap:4px 10px!important;min-height:52px!important;padding:10px 14px!important;border-radius:14px!important;border:1.5px solid var(--hz-line-strong)!important;box-shadow:none!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label:hover,.payment-component-wrapper .method-wrapper input[type="radio"]+label:focus{border:1.5px solid var(--hz-lilac-200)!important;box-shadow:none!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;border:2px solid #CBB8E3;background:#fff;box-sizing:border-box}
+.payment-component-wrapper .method-wrapper input[type="radio"]:checked+label{border:2px solid var(--hz-purple)!important;background:var(--hz-lilac-100)!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]:checked+label::before{border-color:var(--hz-purple);background:radial-gradient(circle,var(--hz-purple) 0 4px,#fff 4.5px)}
+.payment-component-wrapper .method-wrapper input[type="radio"]:checked+label::after{content:none!important;display:none!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label>span:not(.recommendation){font-size:.9375rem!important;font-weight:600!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label>span small{display:none!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_konfipay"]>span{font-size:0!important}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_konfipay"]>span::before{content:"Lastschrift";font-size:.9375rem;font-weight:600}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_banktransfer"]>span::before{font-weight:600}
+.payment-component-wrapper .method-wrapper input[type="radio"]+label[for="payment_method_banktransfer"]>span::after{content:none!important}
+@media (min-width:640px){.payment-component-wrapper .method-wrapper,.payment-component-wrapper .method-wrapper.recommendation-visible{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Absenden */
+.submit-wrapper{margin-top:18px!important}
+.submit-wrapper button.button,.submit-wrapper button.button.grey{min-height:54px!important;font-size:1.0625rem!important}
+
 @media (prefers-reduced-motion:reduce){*{transition-duration:1ms!important;animation:none!important}}
