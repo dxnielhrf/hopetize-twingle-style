@@ -511,8 +511,8 @@ if(t<1) anim.raf=requestAnimationFrame(step); else {p=((to%n)+n)%n; anim=null; r
 }
 function go(dir){clearTimeout(timer); animateTo((anim?anim.to:Math.round(p))+dir,900);} // schnelles Mehrfachdrücken summiert sich
 function announce(){ if(stopped||hover||focus) live.textContent='Foto '+((Math.round(p)%n0)+1)+' von '+n0; }
-function schedule(){clearTimeout(timer); if(!stopped&&!hover&&!focus&&visible&&!drag&&!anim) timer=setTimeout(function(){go(1);},3800);}
-root.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hover=true;clearTimeout(timer);}});
+function schedule(){clearTimeout(timer); if(!stopped&&!focus&&visible&&!drag&&!anim) timer=setTimeout(function(){go(1);},hover?6500:3000);} // wie Hero: bei Hover langsamer statt Stopp
+root.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hover=true;schedule();}});
 root.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){hover=false;schedule();}});
 root.addEventListener('focusin',function(){focus=true;clearTimeout(timer);});
 root.addEventListener('focusout',function(e){if(!root.contains(e.relatedTarget)){focus=false;schedule();}});

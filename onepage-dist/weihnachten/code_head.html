@@ -1,0 +1,631 @@
+<script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><script>(function(h){h.classList.add('js');try{if(sessionStorage.getItem('ht-loader')!=='1'||/[?&]loader/.test(location.search))h.classList.add('is-loading')}catch(e){h.classList.add('is-loading')}})(document.documentElement);</script><style>.skip-to-content,#root .con-kit-page>:not(.con-kit-component-cookie-banner):not(.con-kit-component-cookie-banner-bulka){display:none!important}#root,#root .con-kit-site,#root .con-kit-page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important}</style><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2"><link rel="icon" type="image/png" sizes="32x32" href="https://onecdn.io/media/effb2c8e-1c05-479f-83b1-9c4cce7b7b98/full"><link rel="apple-touch-icon" href="https://onecdn.io/media/0de89681-2481-454a-ba10-0f233ca93804/full"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F6F2FC"><script>
+/* Weihnachtsaktion: Twingle-Projektdaten genau einmal laden. Laeuft im Head VOR interactions.js.
+interactions.js (Barometer) und wx.js lesen beide __twingle_projectData aus dem Formular-HTML. Der fetch-Wrapper
+beantwortet nur genau diese URL aus einem gemeinsamen Promise; bei ?vorschau=1 mit Beispielwerten. */
+(function () {
+'use strict';
+var TW = 'https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form';
+var PREVIEW = /[?&]vorschau=1\b/.test(location.search);
+var SAMPLE = { project_target_amount: 18450, project_target_donators: 214, project_donations: [
+{ name: 'Julia', message: 'Ihr macht so einen Unterschied. Frohe Weihnachten an alle Kinder auf Station!', sample: 1 },
+{ name: 'Familie B.', message: 'Wir denken an euch. Ganz viel Kraft und ein leuchtendes Weihnachtsfest.', sample: 1 },
+{ name: 'Autohaus (Beispiel)', message: 'Statt Kundengeschenken spenden wir dieses Jahr an Hopetize.', sample: 1 },
+{ name: 'Tom', message: 'Für ein Spielzimmer voller neuer Spiele.', sample: 1 },
+{ name: 'Anonym', message: '', sample: 1 },
+{ name: 'Sarah K.', message: 'Ihr seid nicht allein. Alles Liebe aus Ulm.', sample: 1 },
+{ name: 'Lena', message: 'Frohe Weihnachten aus Günzburg!', sample: 1 }
+] };
+var F = window.fetch, p = null;
+window.wxPreview = PREVIEW;
+window.wxTwingle = function () {
+return p || (p = PREVIEW || !F
+? Promise.resolve('var __twingle_projectData = ' + JSON.stringify(PREVIEW ? SAMPLE : {}) + ';')
+: F.call(window, TW, { credentials: 'omit' }).then(function (r) { if (!r.ok) throw new Error('Twingle ' + r.status); return r.text(); }));
+};
+if (F) window.fetch = function (u) {
+return u === TW ? window.wxTwingle().then(function (t) { return new Response(t); }) : F.apply(this, arguments);
+};
+})();
+</script><script>document.addEventListener('DOMContentLoaded',function(){
+/* Onepage-Port: Onepage rendert seine Sektionen in #root (React). Unsere Seite liegt komplett im Seiten-Code daneben.
+#root enthaelt nur eine leere Platzhalter-Sektion (Onepage braucht >= 1 Sektion zum Veroeffentlichen) und ist per Head-CSS ausgeblendet. */
+(function () {
+'use strict';
+document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href="#"]'); if (a) e.preventDefault(); });
+})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
+(function () {
+'use strict';
+var d = document, html = d.documentElement, W = window;
+var RM = W.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var FINE = W.matchMedia('(hover: hover) and (pointer: fine)').matches;
+var $ = function (s, c) { return (c || d).querySelector(s); };
+var $$ = function (s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); };
+var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+var fmt = function (n) { return Math.round(n).toLocaleString('de-DE'); };
+var easeOutExpo = function (t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); };
+var easeIO = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+var MAP = null;
+var cur = W.scrollY, target = cur, running = false, anim = null;
+function maxY() { return d.documentElement.scrollHeight - W.innerHeight; }
+function loop() {
+cur += (target - cur) * 0.1;
+if (Math.abs(target - cur) < 0.4) { cur = target; running = false; }
+W.scrollTo(0, cur);
+if (running) requestAnimationFrame(loop);
+}
+if (FINE && !RM) {
+W.addEventListener('wheel', function (e) {
+if (e.ctrlKey || html.classList.contains('is-loading') || html.classList.contains('is-modal-open') || html.classList.contains('hv-lock') || d.body.classList.contains('is-menu-open')) return;
+for (var n = e.target; n && n !== d.body; n = n.parentElement) {
+var oy = getComputedStyle(n).overflowY;
+if ((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight) return;
+}
+e.preventDefault(); anim = null;
+var dy = e.deltaY * (e.deltaMode === 1 ? 36 : e.deltaMode === 2 ? W.innerHeight : 1);
+if (!running) { cur = W.scrollY; target = cur; }
+target = clamp(target + clamp(dy, -220, 220), 0, maxY());
+if (!running) { running = true; requestAnimationFrame(loop); }
+}, { passive: false });
+W.addEventListener('scroll', function () { if (!running && !anim) { cur = target = W.scrollY; } }, { passive: true });
+}
+function scrollToY(y) {
+y = clamp(y, 0, maxY()); running = false;
+var from = W.scrollY, dist = y - from, dur = clamp(Math.abs(dist) * 0.45, 650, 1500), t0 = performance.now(), me = {};
+anim = me;
+(function step(now) {
+if (anim !== me) return;
+var t = clamp((now - t0) / dur, 0, 1);
+W.scrollTo(0, from + dist * easeIO(t));
+if (t < 1) requestAnimationFrame(step); else { anim = null; cur = target = W.scrollY; }
+})(t0);
+}
+d.addEventListener('click', function (e) {
+var a = e.target.closest && e.target.closest('a[href^="#"]');
+if (!a) return;
+var id = a.getAttribute('href');
+if (id === '#') return;
+var el = id === '#top' ? d.body : $(id);
+if (!d.getElementById('weihnachten') && (id === '#top' || !el)) { e.preventDefault(); location.href = '/' + (id === '#top' ? '' : id); return; }
+if (!el) return;
+e.preventDefault();
+var pre = a.getAttribute('data-preselect');
+if (pre) { var r = $('input[type="radio"][value="' + pre + '"]'); if (r) r.checked = true; }
+d.body.classList.remove('is-menu-open');
+var off = W.innerWidth < 992 ? 70 : 20;
+scrollToY(id === '#top' ? 0 : el.getBoundingClientRect().top + W.scrollY - off);
+if (history.replaceState) history.replaceState(null, '', id === '#top' ? location.pathname : id);
+});
+var nav = $('.navbar'), lastY = W.scrollY, acc = 0;
+function onNavScroll() {
+var y = W.scrollY, dy = y - lastY; lastY = y;
+if (!nav) return;
+nav.classList.toggle('is-nav-scrolled', y > 8);
+if (d.body.classList.contains('is-menu-open') || y < 160) { nav.classList.remove('is-nav-hidden'); acc = 0; return; }
+acc = (dy > 0) === (acc > 0) ? acc + dy : dy;
+if (acc > 14) nav.classList.add('is-nav-hidden');
+if (acc < -10) nav.classList.remove('is-nav-hidden');
+}
+W.addEventListener('scroll', onNavScroll, { passive: true });
+if (FINE) d.addEventListener('mousemove', function (e) { if (e.clientY < 12 && nav) nav.classList.remove('is-nav-hidden'); });
+var burger = $('.nav_burger');
+$$('.nav_mobile-link').forEach(function (l, i) { l.style.setProperty('--i', i); });
+if (burger) burger.addEventListener('click', function () { d.body.classList.toggle('is-menu-open'); nav.classList.remove('is-nav-hidden'); });
+d.addEventListener('keydown', function (e) { if (e.key === 'Escape') d.body.classList.remove('is-menu-open'); });
+var menu = $('.nav_menu'), ind = $('.nav_indicator'), links = $$('.nav_link'), activeLink = null;
+function moveInd(l) {
+if (!ind || !menu) return;
+if (!l) { ind.style.opacity = 0; return; }
+ind.style.opacity = 1; ind.style.width = l.offsetWidth + 'px'; ind.style.transform = 'translateX(' + l.offsetLeft + 'px)';
+}
+links.forEach(function (l) { l.addEventListener('mouseenter', function () { moveInd(l); }); });
+if (menu) menu.addEventListener('mouseleave', function () { moveInd(activeLink); });
+var spyTargets = links.map(function (l) { return $(l.getAttribute('href')); });
+function spy() {
+var line = W.innerHeight * 0.4, found = null;
+spyTargets.forEach(function (s, i) { if (s) { var r = s.getBoundingClientRect(); if (r.top < line && r.bottom > line) found = links[i]; } });
+if (found !== activeLink) { links.forEach(function (l) { l.classList.toggle('is-nav-active', l === found); }); activeLink = found; if (!menu || !menu.matches(':hover')) moveInd(found); }
+}
+W.addEventListener('scroll', spy, { passive: true });
+var sticky = $('.sticky-donate'), donate = $('#spenden');
+function onSticky() {
+if (!sticky) return;
+var r = donate ? donate.getBoundingClientRect() : null;
+var inDonate = r && r.top < W.innerHeight * 0.8 && r.bottom > 0;
+var kontakt = $('#kontakt'); if (kontakt && kontakt.getBoundingClientRect().top < W.innerHeight) inDonate = true; // Kontaktformular + Footer frei lassen
+sticky.classList.toggle('is-donate-visible', W.scrollY > W.innerHeight * 0.55 && !inDonate && !d.body.classList.contains('is-menu-open'));
+}
+W.addEventListener('scroll', onSticky, { passive: true });
+function splitNode(el) {
+$$('.ht-w', el).forEach(function () {});
+Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+if (n.nodeType === 3) {
+var parts = n.textContent.split(/(\s+)/), frag = d.createDocumentFragment();
+parts.forEach(function (p) {
+if (!p) return;
+if (/^\s+$/.test(p)) { frag.appendChild(d.createTextNode(' ')); return; }
+var w = d.createElement('span'); w.className = 'ht-w';
+var i = d.createElement('span'); i.className = 'ht-wi'; i.textContent = p;
+w.appendChild(i); frag.appendChild(w);
+});
+n.parentNode.replaceChild(frag, n);
+} else if (n.nodeType === 1 && !n.classList.contains('pill-wrap') && !n.classList.contains('ht-w')) splitNode(n);
+});
+}
+function lineIndex(el) {
+var top = null, l = -1, x = 0;
+$$('.ht-w', el).forEach(function (w) {
+var t = w.offsetTop;
+if (top === null || t > top + 4) { top = t; l++; x = 0; }
+w.style.setProperty('--l', l); w.style.setProperty('--x', x++);
+});
+el._lines = l + 1;
+}
+var FIGMA = /[?&]figma/.test(location.search);
+var heads = FIGMA ? [] : $$('.is-split');
+heads.forEach(function (h) { splitNode(h); });
+function measurePill(wrap) {
+var p = wrap.querySelector('.pill'); if (!p) return;
+var fs = parseFloat(getComputedStyle(wrap).fontSize) || 16;
+wrap.style.setProperty('--pw', (p.offsetWidth / fs) + 'em');
+}
+function openPills(scope, delay) {
+var items = $$('.pill-wrap:not(.is-top), .pill-text', scope);
+items.forEach(function (w, i) {
+$$('.pill_avatar', w).forEach(function (a, k) { a.style.setProperty('--a', k); });
+if (w.classList.contains('pill-wrap')) measurePill(w);
+setTimeout(function () { w.classList.add('is-pill-open'); }, delay + i * 230);
+});
+}
+W.addEventListener('resize', function () { $$('.pill-wrap').forEach(measurePill); });
+var RV = ['.hero_benefit', '.hero_trust .eyebrow', '.hero_logo', '.section-head > .tag', '.section-head > .text-size-large', '.barometer', '.impact_card', '.wrapper_xmas > .eyebrow', '.step_card', '.numbers_bar', '.about_cities-label', '.chip.is-city', '.about_photo', '.fact_card', '.wrapper_about > .button-group', '.wrapper_xmas > .button-group', '.quote_card', '.map_content > p', '.map_stat', '.map_content > .button-group', '.map_card', '.help_card', '.help_chips > *', '.transparency', '.wrapper_help > .button-group', '.voices_slider', '.business_card', '.business_checks > *', '.business_photo', '.wrapper_business > .button-group', '.business_logos .eyebrow', '.logo_wall', '.bank_card', '.donate_receipt', '.faq_item', '.contact_content > p', '.contact_card', '.contact_form-card', '.footer_top > *'];
+var scaleSet = ['.barometer', '.numbers_bar', '.map_card', '.quote_card', '.about_photo', '.contact_form-card'];
+var rvEls = [];
+RV.forEach(function (s) { $$(s).forEach(function (el) { if (rvEls.indexOf(el) < 0) { el.setAttribute('data-rv', scaleSet.indexOf(s) > -1 ? 'scale' : ''); rvEls.push(el); } }); });
+var groups = new Map();
+rvEls.forEach(function (el) { var p = el.parentNode; if (!groups.has(p)) groups.set(p, []); groups.get(p).push(el); });
+groups.forEach(function (arr) { arr.forEach(function (el, i) { el.style.setProperty('--d', Math.min(i * 90, 720) + 'ms'); }); });
+var io = new IntersectionObserver(function (ents) {
+ents.forEach(function (en) {
+if (!en.isIntersecting) return;
+var el = en.target; io.unobserve(el);
+el.classList.add('is-inview');
+if (el.hasAttribute('data-rv')) setTimeout(function () { el.classList.add('is-rv-done'); }, 1500 + (parseFloat(el.style.getPropertyValue('--d')) || 0));
+if (el.classList.contains('is-split')) openPills(el, 380 + (el._lines || 1) * 110);
+if (el._onView) el._onView();
+});
+}, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+function countUp(el, to, dur) {
+var t0 = performance.now();
+(function f(now) { var t = clamp((now - t0) / dur, 0, 1); el.textContent = fmt(to * easeOutExpo(t)); if (t < 1) requestAnimationFrame(f); })(t0);
+}
+$$('.count').forEach(function (c) { var to = +c.getAttribute('data-to'); c.textContent = '0'; c._onView = function () { countUp(c, to, 2200); }; });
+var bar = $('.barometer');
+if (bar) {
+var raised = +bar.getAttribute('data-raised') || 0, goal0 = +bar.getAttribute('data-goal') || 50000, next = +bar.getAttribute('data-goal-next') || 0, goal = goal0, barSeen = false;
+var val = $('.barometer_value', bar), fill = $('.barometer_fill', bar), goalEl = $('.barometer_goal', bar);
+var setGoal = function () { goal = next && raised >= goal0 ? next : goal0; goalEl.textContent = fmt(goal); };
+var showBar = function () { fill.style.width = clamp(raised / goal * 100, raised > 0 ? 2 : 0, 100) + '%'; countUp(val, raised, 2400); };
+setGoal();
+val.textContent = '0';
+bar._onView = function () { barSeen = true; setTimeout(showBar, 250); };
+if (W.fetch) fetch('https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form', { credentials: 'omit' })
+.then(function (r) { return r.text(); })
+.then(function (t) {
+var line = t.split('\n').filter(function (l) { return l.indexOf('__twingle_projectData') > -1; })[0];
+var o = JSON.parse(line.trim().replace(/^var __twingle_projectData\s*=\s*/, '').replace(/;\s*$/, ''));
+var sum = +o.project_target_amount, cnt = +o.project_target_donators;
+if (!(sum >= 0)) return;
+raised = sum; bar.setAttribute('data-raised', sum); bar.setAttribute('data-donators', cnt || 0); bar.classList.add('is-live');
+setGoal();
+if (barSeen) showBar();
+})
+.catch(function () { /* Fallback: statische Werte */ });
+}
+var cd = $('.countdown');
+if (cd) {
+var end = new Date(cd.getAttribute('data-end')).getTime(), start = new Date('2026-11-16T00:00:00+01:00').getTime(), lbl = $('.countdown_label', cd);
+var tickCd = function () {
+var pre = Date.now() < start; // vor dem Aktionsstart: "Start in", danach "Noch"
+if (lbl) lbl.textContent = pre ? 'Start in' : 'Noch';
+var s = Math.max(0, ((pre ? start : end) - Date.now()) / 1000), v = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60) };
+$$('.countdown_num', cd).forEach(function (n) {
+var t = String(v[n.getAttribute('data-unit')]).padStart(2, '0');
+if (n.textContent !== t) { n.textContent = t; n.classList.remove('is-tick'); void n.offsetWidth; n.classList.add('is-tick'); }
+});
+};
+tickCd(); setInterval(tickCd, 15000);
+}
+var embed = $('.map_embed');
+if (embed) {
+var NS = 'http://www.w3.org/2000/svg';
+var LBL = { Augsburg: [14, -6, 'start'], Erlangen: [14, -6, 'start'], Freiburg: [14, 6, 'start'], Heidelberg: [14, 2, 'start'], Heilbronn: [14, 6, 'start'], Karlsruhe: [-14, 6, 'end'], Leipzig: [14, 6, 'start'], Mannheim: [-14, -4, 'end'], 'München': [14, 8, 'start'], 'Nürnberg': [14, 12, 'start'], Regensburg: [14, 6, 'start'], Stuttgart: [14, 6, 'start'], 'Tübingen': [-14, 8, 'end'], Ulm: [-6, 26, 'end'], 'Würzburg': [-14, -4, 'end'], 'Günzburg': [0, 0, 'start'] };
+var TIP = { 'München': ['2 Kinderkliniken in München', 'Schwabing + LMU/Haunersches Kinderspital'], 'Günzburg': ['Sitz von Hopetize', 'Günzburg'] };
+var svg = d.createElementNS(NS, 'svg');
+svg.setAttribute('viewBox', '-20 -10 ' + (MAP.w + 40) + ' ' + (MAP.h + 20)); svg.setAttribute('class', 'map_svg'); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', 'Deutschlandkarte mit 16 Kinderkliniken in 15 Städten');
+var land = d.createElementNS(NS, 'path'); land.setAttribute('d', MAP.d); land.setAttribute('class', 'map_land'); svg.appendChild(land);
+var tip = d.createElement('div'); tip.className = 'map_tip';
+var names = Object.keys(MAP.cities).sort(function (a, b) { return MAP.cities[b][1] - MAP.cities[a][1]; });
+names.forEach(function (c, i) {
+var p = MAP.cities[c], g = d.createElementNS(NS, 'g'), home = c === 'Günzburg';
+g.setAttribute('class', 'map_pin' + (home ? ' is-home' : '')); g.style.setProperty('--p', i);
+var big = c === 'München' ? 13 : 10;
+var ring = d.createElementNS(NS, 'circle'); ring.setAttribute('cx', p[0]); ring.setAttribute('cy', p[1]); ring.setAttribute('r', big); ring.setAttribute('class', 'map_pin-ring');
+var dot = d.createElementNS(NS, 'circle'); dot.setAttribute('cx', p[0]); dot.setAttribute('cy', p[1]); dot.setAttribute('r', home ? 8 : big); dot.setAttribute('class', 'map_pin-dot');
+var hit = d.createElementNS(NS, 'circle'); hit.setAttribute('cx', p[0]); hit.setAttribute('cy', p[1]); hit.setAttribute('r', 22); hit.setAttribute('fill', 'transparent');
+if (!home) g.appendChild(ring);
+g.appendChild(dot); g.appendChild(hit);
+if (!home) {
+var t = d.createElementNS(NS, 'text'), o = LBL[c];
+t.setAttribute('x', p[0] + o[0]); t.setAttribute('y', p[1] + o[1]); t.setAttribute('text-anchor', o[2]); t.setAttribute('class', 'map_pin-label');
+t.textContent = c === 'München' ? 'München (2)' : c; g.appendChild(t);
+}
+var show = function () {
+var tt = TIP[c] || ['Kinderklinik ' + c, ''];
+tip.innerHTML = tt[0] + (tt[1] ? '<small>' + tt[1] + '</small>' : '');
+var r = embed.getBoundingClientRect(), s = r.width / (MAP.w + 40);
+tip.style.left = ((p[0] + 20) * s) + 'px'; tip.style.top = ((p[1] + 10) * s) + 'px';
+tip.classList.add('is-tip-on'); g.classList.add('is-hot');
+};
+var hide = function () { tip.classList.remove('is-tip-on'); g.classList.remove('is-hot'); };
+g.addEventListener('mouseenter', show); g.addEventListener('mouseleave', hide);
+g.addEventListener('click', function (e) { e.stopPropagation(); show(); });
+svg.appendChild(g);
+});
+d.addEventListener('click', function () { tip.classList.remove('is-tip-on'); });
+embed.appendChild(svg); embed.appendChild(tip);
+var len = land.getTotalLength ? land.getTotalLength() : 4000;
+land.style.strokeDasharray = len; land.style.strokeDashoffset = len;
+embed._onView = function () {
+land.style.transition = 'stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1)';
+requestAnimationFrame(function () { land.style.strokeDashoffset = 0; svg.classList.add('is-drawn'); });
+};
+io.observe(embed);
+}
+var car = $('.hero_carousel'), track = $('.hero_track'), cards = $$('.hero_card'), carOn = false;
+if (car && track && cards.length) {
+var CR = 42.55, CP = 105.9, CH = 22.69, CWL = 29.5, CWP = 17.19;
+var u = 16, ang = [], start = [], A = 0, off = 0, vel = 0, hover = false, drag = null;
+var spd = RM ? 0.0003 : 0.0011, hf = 1;
+var measure = function () {
+var s = parseFloat(getComputedStyle(car).getPropertyValue('--car-s')) || 1;
+u = parseFloat(getComputedStyle(car).fontSize) * s;
+track.style.perspective = (CP * u).toFixed(1) + 'px';
+A = 0;
+cards.forEach(function (c, i) {
+var w = (i % 2 ? CWP : CWL) * u, h = CH * u;
+c.style.width = w.toFixed(1) + 'px'; c.style.height = h.toFixed(1) + 'px';
+c.style.marginLeft = (-w / 2).toFixed(1) + 'px'; c.style.marginTop = (-h / 2).toFixed(1) + 'px';
+ang[i] = 2 * Math.asin((i % 2 ? CWP : CWL) / 2 / CR); start[i] = A; A += ang[i];
+});
+};
+var render = function () {
+var R = CR * u;
+cards.forEach(function (c, i) {
+var t = start[i] + ang[i] / 2 - ang[0] / 2 + off;
+t = ((t + A / 2) % A + A) % A - A / 2;
+var far = Math.abs(t) > 1.55;
+c.style.visibility = far ? 'hidden' : '';
+if (far) return;
+c.style.transform = 'translateZ(' + R.toFixed(1) + 'px) rotateY(' + (-t).toFixed(4) + 'rad) translateZ(' + (-R).toFixed(1) + 'px)';
+});
+};
+measure(); W.addEventListener('resize', function () { measure(); render(); });
+var tickCar = function () {
+if (!carOn) return;
+hf += ((hover && !drag ? 0.3 : 1) - hf) * 0.05;
+if (!drag) { vel *= 0.955; off -= spd * hf - vel; }
+render(); requestAnimationFrame(tickCar);
+};
+new IntersectionObserver(function (e) { var was = carOn; carOn = e[0].isIntersecting; if (carOn && !was) requestAnimationFrame(tickCar); }).observe(car);
+render();
+if (FINE) { car.addEventListener('mouseenter', function () { hover = true; }); car.addEventListener('mouseleave', function () { hover = false; }); }
+car.addEventListener('pointerdown', function (e) { e.preventDefault(); vel = 0; drag = { last: e.clientX }; car.classList.add('is-dragging'); car.setPointerCapture(e.pointerId); });
+car.addEventListener('pointermove', function (e) { if (!drag) return; var d = (e.clientX - drag.last) / (CR * u); drag.last = e.clientX; off += d; vel = clamp(vel * 0.4 + d * 0.6, -0.09, 0.09); });
+var up = function () { if (!drag) return; drag = null; if (Math.abs(vel) < 0.002) vel = 0; car.classList.remove('is-dragging'); };
+car.addEventListener('pointerup', up); car.addEventListener('pointercancel', up);
+car.style.touchAction = 'pan-y';
+}
+var about = $('.wrapper_about'), facts = $$('.fact_card');
+if (about && facts.length && !RM) {
+var fOn = false, mx = 0, my = 0, tmx = 0, tmy = 0, t0f = performance.now();
+var depth = [14, 20, 17, 24], ph = [0, 1.7, 3.1, 4.4];
+if (FINE) about.addEventListener('mousemove', function (e) { var r = about.getBoundingClientRect(); tmx = (e.clientX - r.left) / r.width * 2 - 1; tmy = (e.clientY - r.top) / r.height * 2 - 1; });
+about.addEventListener('mouseleave', function () { tmx = tmy = 0; });
+var tickF = function (now) {
+if (!fOn) return;
+var t = (now - t0f) / 1000, wide = W.innerWidth > 991;
+mx += (tmx - mx) * 0.045; my += (tmy - my) * 0.045;
+facts.forEach(function (c, i) {
+if (!wide) { c.style.translate = ''; return; }
+var x = Math.sin(t * 0.55 + ph[i]) * 5 + mx * depth[i], y = Math.cos(t * 0.45 + ph[i]) * 8 + my * depth[i] * 0.7;
+c.style.translate = x.toFixed(2) + 'px ' + y.toFixed(2) + 'px';
+});
+requestAnimationFrame(tickF);
+};
+new IntersectionObserver(function (e) { var was = fOn; fOn = e[0].isIntersecting; if (fOn && !was) requestAnimationFrame(tickF); }).observe(about);
+}
+function belt(view, track, speed) {
+if (!view || !track || !track.children.length) return;
+var orig = Array.prototype.slice.call(track.children);
+var add = function () { orig.forEach(function (n) { var c = n.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.removeAttribute('data-rv'); track.appendChild(c); }); };
+add(); add();
+var setW = 0, pos = 0, v = 0, f = 1, hov = false, dr = null, on = false, last = 0;
+var meas = function () { setW = track.children[orig.length].offsetLeft - track.children[0].offsetLeft; };
+meas(); W.addEventListener('resize', meas);
+pos = view.getBoundingClientRect().left - view.parentNode.getBoundingClientRect().left; // erste Karte startet buendig, nicht angeschnitten
+var tick = function (now) {
+if (!on) return;
+var dt = Math.min(now - last, 50) / 16.67; last = now;
+f += ((hov && !dr ? 0.2 : 1) - f) * 0.05 * dt;
+if (!dr) { v *= Math.pow(0.95, dt); pos += (RM ? speed * 0.3 : speed) * f * dt - v * dt; }
+if (setW) pos = ((pos % setW) + setW) % setW;
+track.style.transform = 'translate3d(' + (-pos).toFixed(2) + 'px,0,0)';
+requestAnimationFrame(tick);
+};
+new IntersectionObserver(function (e) { var was = on; on = e[0].isIntersecting; if (on && !was) { last = performance.now(); requestAnimationFrame(tick); } }).observe(view);
+if (FINE) { view.addEventListener('mouseenter', function () { hov = true; }); view.addEventListener('mouseleave', function () { hov = false; }); }
+view.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.button) return; dr = { x: e.clientX, y: e.clientY, last: e.clientX, id: e.pointerId, h: null }; v = 0; });
+view.addEventListener('pointermove', function (e) {
+if (!dr) return;
+if (dr.h === null) { var ax = Math.abs(e.clientX - dr.x), ay = Math.abs(e.clientY - dr.y); if (ax < 4 && ay < 4) return; dr.h = ax > ay; if (dr.h) { view.setPointerCapture(dr.id); view.classList.add('is-dragging'); } }
+if (!dr.h) return;
+var dx = e.clientX - dr.last; dr.last = e.clientX; pos -= dx; v = clamp(v * 0.4 + dx * 0.6, -60, 60);
+});
+var up = function () { if (!dr) return; if (!dr.h) v = 0; dr = null; view.classList.remove('is-dragging'); };
+view.addEventListener('pointerup', up); view.addEventListener('pointercancel', up);
+view.addEventListener('dragstart', function (e) { e.preventDefault(); });
+}
+if (W.innerWidth > 767) belt($('.voices_slider'), $('.voices_grid'), 0.45); // Handy: natives Wischen per CSS-Scroll-Snap
+var modal = $('.donate_modal'), lastFocus = null;
+if (modal) {
+var openModal = function (from) {
+lastFocus = from; html.classList.add('is-modal-open'); modal.setAttribute('aria-hidden', 'false');
+d.dispatchEvent(new Event('ht:donate-open')); // Onepage-Port: laedt das Twingle-Formular beim ersten Oeffnen (js/twingle-popup.js)
+d.body.classList.remove('is-menu-open'); running = false; anim = null;
+setTimeout(function () { var f = $('.amount.is-active', modal) || $('.amount', modal); if (f) f.focus({ preventScroll: true }); }, 450);
+};
+var closeModal = function () {
+if (!html.classList.contains('is-modal-open')) return;
+html.classList.remove('is-modal-open'); modal.setAttribute('aria-hidden', 'true');
+if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+};
+d.addEventListener('click', function (e) {
+var a = e.target.closest && e.target.closest('a.button[href="#weihnachten"], a.button[href="#spenden"]:not(.is-donate), a.sticky-donate');
+if (!a || modal.contains(a)) return;
+e.preventDefault(); e.stopImmediatePropagation(); openModal(a);
+}, true);
+$('.donate_modal-backdrop', modal).addEventListener('click', closeModal);
+$('.donate_modal-close', modal).addEventListener('click', function (e) { e.preventDefault(); closeModal(); });
+d.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+var openFromHash = function () {
+if (location.hash !== '#spenden') return;
+if (html.classList.contains('is-loading')) { setTimeout(openFromHash, 200); return; }
+openModal(null); history.replaceState(null, '', location.pathname + location.search);
+};
+openFromHash(); W.addEventListener('hashchange', openFromHash);
+}
+$$('.faq_item').forEach(function (it) {
+var q = $('.faq_question', it);
+q.setAttribute('aria-expanded', it.classList.contains('is-open'));
+q.addEventListener('click', function () {
+var open = !it.classList.contains('is-open');
+$$('.faq_item').forEach(function (o) { o.classList.remove('is-open'); $('.faq_question', o).setAttribute('aria-expanded', 'false'); });
+if (open) { it.classList.add('is-open'); q.setAttribute('aria-expanded', 'true'); }
+});
+});
+var amounts = $$('.amount'), inp = $('.amount_input');
+amounts.forEach(function (b) { b.addEventListener('click', function () { amounts.forEach(function (o) { o.classList.toggle('is-active', o === b); }); if (inp) inp.value = ''; }); });
+if (inp) inp.addEventListener('input', function () { inp.value = inp.value.replace(/[^\d]/g, ''); if (inp.value) amounts.forEach(function (o) { o.classList.remove('is-active'); }); });
+var copy = $('.bank_copy');
+if (copy) copy.addEventListener('click', function () {
+var txt = $('.bank_iban').textContent.replace(/\s/g, ''), lab = $('.bank_copy-text', copy);
+var done = function () { copy.classList.add('is-copied'); lab.textContent = 'Kopiert'; setTimeout(function () { copy.classList.remove('is-copied'); lab.textContent = 'Kopieren'; }, 2200); };
+if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, done); else done();
+});
+var hero = $('.section_hero');
+$$('.hero_word').forEach(function (w, i) { w.style.setProperty('--w', i); });
+function startObservers() {
+heads.forEach(lineIndex);
+heads.concat(rvEls, $$('.count'), $$('.pill-wrap.is-top'), bar ? [bar] : []).forEach(function (el) { io.observe(el); });
+}
+function heroIntro() {
+html.classList.remove('is-loading');
+if (nav) nav.classList.add('nav-in');
+if (hero) hero.classList.add('hero-in');
+var words = $$('.hero_word').length;
+openPills(hero, 420 + words * 70);
+setTimeout(function () { spy(); onSticky(); }, 1200);
+startObservers();
+}
+function runLoader() {
+var L = $('.loader'), logo = $('.loader_logo'), rib = $('.loader_ribbon'), word = $('.loader_word'), sheet = $('.loader_sheet');
+var brand = $('.nav_brand', nav), bm = $('.nav_bookmark', nav);
+if (!L || !logo || !logo.animate || !brand) { heroIntro(); return; }
+var E = 'cubic-bezier(.22,1,.36,1)', IO = 'cubic-bezier(.65,0,.35,1)';
+brand.style.opacity = 0; bm.style.transform = 'translateY(-105%)';
+rib.animate([{ transform: 'scale(4.2) rotate(-12deg)', clipPath: 'inset(100% 0 0 0)' }, { transform: 'scale(4.2) rotate(-12deg)', clipPath: 'inset(0 0 0 0)', offset: .45 }, { transform: 'none', clipPath: 'inset(0 0 0 0)' }], { duration: 1050, easing: IO, fill: 'both' });
+word.animate([{ clipPath: 'inset(0 100% 0 0)', transform: 'translateX(-1.2em)', opacity: 0 }, { clipPath: 'inset(0 0% 0 0)', transform: 'none', opacity: 1 }], { duration: 750, delay: 700, easing: E, fill: 'both' });
+sheet.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }], { duration: 800, delay: 1350, easing: IO, fill: 'both' });
+setTimeout(function () {
+var a = logo.getBoundingClientRect(), b = brand.getBoundingClientRect();
+var s = b.height / a.height;
+logo.style.left = a.left + 'px'; logo.style.top = a.top + 'px'; logo.style.transform = 'none';
+L.querySelector('.loader_sheet').style.zIndex = 0;
+bm.animate([{ transform: 'translateY(-105%)' }, { transform: 'none' }], { duration: 1000, delay: 120, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'both' }).onfinish = function () { bm.style.transform = ''; };
+var m = logo.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: 'translate(' + (b.left - a.left) + 'px,' + (b.top - a.top) + 'px) scale(' + s + ')' }], { duration: 1150, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'both' });
+setTimeout(function () { brand.style.transition = 'opacity .45s cubic-bezier(.45,0,.2,1)'; brand.style.opacity = ''; }, 900);
+m.onfinish = function () {
+L.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'both' }).onfinish = function () { L.style.display = 'none'; brand.style.transition = ''; };
+};
+setTimeout(heroIntro, 520);
+}, 1750);
+}
+function boot() {
+var force = /[?&]loader/.test(location.search), seen = false;
+try { seen = sessionStorage.getItem('ht-loader') === '1'; sessionStorage.setItem('ht-loader', '1'); } catch (e) {}
+if ((seen && !force) || RM || FIGMA) { var l = $('.loader'); if (l) l.style.display = 'none'; heroIntro(); }
+else runLoader();
+}
+if (!seenCheck()) html.classList.add('is-loading');
+function seenCheck() { try { return sessionStorage.getItem('ht-loader') === '1' && !/[?&]loader/.test(location.search); } catch (e) { return false; } }
+var fontsReady = d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve();
+Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1400); })]).then(function () { requestAnimationFrame(boot); });
+var rz; W.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { heads.forEach(lineIndex); moveInd(activeLink); }, 200); });
+})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
+(function(){var d=document,q=function(s){return Array.prototype.slice.call(d.querySelectorAll(s))};
+function run(){
+var a=d.querySelector('.amount_input');if(a){a.placeholder='Freier Betrag … €';a.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault()});}
+q('.amount_form').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();e.stopImmediatePropagation()},true)});
+q('.faq_question,.amount,.bank_copy,.nav_burger').forEach(function(b){if(b.tagName==='BUTTON')return;b.setAttribute('role','button');b.setAttribute('tabindex','0');b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();b.click()}})});
+q('.amount,.bank_copy,.faq_question,.nav_burger').forEach(function(b){if(b.tagName==='A'&&!b.getAttribute('href'))b.addEventListener('click',function(e){e.preventDefault()})});
+q('img[alt="inherit"]').forEach(function(i){i.alt=''});
+}
+if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',run);else run();})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
+(function(){
+var modal=document.querySelector('.hv-modal'); if(!modal||modal.dataset.ready) return; modal.dataset.ready='1';
+document.body.appendChild(modal); // raus aus Sektionen mit transform/overflow, damit position:fixed sicher greift
+var video=modal.querySelector('video'), closeBtn=modal.querySelector('.hv-close'), last=null;
+function open(btn){last=btn; video.poster=btn.dataset.poster||''; video.src=btn.dataset.video; modal.classList.add('open'); document.documentElement.classList.add('hv-lock');
+video.play().catch(function(){}); closeBtn.focus();}
+function close(){video.pause(); video.removeAttribute('src'); video.load(); modal.classList.remove('open'); document.documentElement.classList.remove('hv-lock'); if(last) last.focus();}
+document.addEventListener('click',function(e){var b=e.target.closest('.hv-btn'); if(b){open(b);return;} if(e.target===modal||e.target.closest('.hv-close')) close();});
+document.addEventListener('keydown',function(e){
+if(!modal.classList.contains('open')) return;
+if(e.key==='Escape'){e.stopImmediatePropagation(); close(); return;}
+if(e.key==='Tab'){e.preventDefault(); (document.activeElement===closeBtn?video:closeBtn).focus();} // Fokus bleibt im Dialog
+},true);
+})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
+/* Weihnachtsaktion 2026 (neues Design): Seitenlogik. Laeuft NACH interactions.js.
+Von interactions.js kommen: Loader, Navbar, Headline-Split, Pills, Reveals, Barometer (Summe, Balken, Ziel 50.000 -> 100.000),
+Countdown, Anker-Scroll, Sticky-Button, Stimmen-Laufband, FAQ, IBAN kopieren. Hier: Etappen, Anzahl, Nachrichten,
+Formular (lazy), Betragskarten, Teilen, Handy-Leiste. */
+(function () {
+'use strict';
+var d = document, W = window;
+var $ = function (s) { return d.querySelector(s); };
+var $$ = function (s) { return Array.prototype.slice.call(d.querySelectorAll(s)); };
+var CFG = {
+form: 'https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form',
+shareUrl: 'https://hopetize.de/weihnachten',
+shareText: 'Weihnachten soll leuchten, auch für Kinder mit Krebs. Ich unterstütze die Weihnachtsaktion von Hopetize. Machst du mit?',
+perWish: 40,
+goals: [{ a: 12500, t: 'Etappe 1' }, { a: 25000, t: 'Etappe 2' }, { a: 50000, t: 'Ziel' }, { a: 100000, t: 'Bonusziel', bonus: true }]
+};
+var eur = function (n) { return Math.round(n).toLocaleString('de-DE') + ' €'; };
+var int = function (n) { return Math.round(n).toLocaleString('de-DE'); };
+function bind(k, v) { $$('[data-bind="' + k + '"]').forEach(function (e) { e.textContent = v; }); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+$$('.nav_link[href^="#"]').forEach(function (a) { a.setAttribute('href', '/' + a.getAttribute('href')); });
+var rvIo = new IntersectionObserver(function (es) {
+es.forEach(function (e) { if (e.isIntersecting) { rvIo.unobserve(e.target); e.target.classList.add('is-inview'); } });
+}, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+function reveal(el, kind, delay) { el.setAttribute('data-rv', kind || ''); if (delay) el.style.setProperty('--d', delay + 'ms'); rvIo.observe(el); }
+$$('[data-wxrv]').forEach(function (el) { reveal(el, el.getAttribute('data-wxrv')); });
+var last = CFG.goals[CFG.goals.length - 2].a;
+function render(sum, count) {
+var goal = sum >= last ? CFG.goals[CFG.goals.length - 1].a : last, pct = Math.min(100, sum / goal * 100);
+bind('sum', eur(sum)); bind('goal', eur(goal)); bind('pct', Math.floor(pct) + ' %');
+bind('count', int(count)); bind('countLabel', count === 1 ? 'Spende' : 'Spenden');
+$$('.wx-dock-fill').forEach(function (f) { f.style.width = pct + '%'; });
+var track = $('.wx-barometer .barometer_track');
+$$('.wx-mark').forEach(function (m) { m.remove(); });
+CFG.goals.forEach(function (g) {
+if (g.a >= goal || !track) return;
+var m = d.createElement('span'); m.className = 'wx-mark' + (sum >= g.a ? ' is-done' : ''); m.style.left = (g.a / goal * 100) + '%'; track.appendChild(m);
+});
+var ol = $('#wxStages'), next = false; ol.innerHTML = '';
+CFG.goals.forEach(function (g) {
+var done = sum >= g.a, locked = g.bonus && sum < last, li = d.createElement('li');
+li.className = 'wx-stage' + (done ? ' is-done' : '') + (!done && !next && !locked ? ' is-next' : '') + (locked ? ' is-locked' : '');
+if (!done && !locked) next = true;
+li.innerHTML = '<span class="wx-stage-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>' +
+'<span class="wx-stage-t">' + g.t + '<small>' + (locked ? 'öffnet bei ' + eur(last) : 'rund ' + int(g.a / CFG.perWish) + ' Wünsche') + '</small></span><b class="wx-stage-a">' + eur(g.a) + '</b>';
+li.setAttribute('aria-label', g.t + ', ' + eur(g.a) + (done ? ', erreicht' : locked ? ', noch gesperrt' : ', noch offen'));
+ol.appendChild(li);
+});
+}
+var msgs = [], shown = W.matchMedia('(max-width:767px)').matches ? 3 : 6;
+function ago(t) {
+if (!t) return '';
+var dt = new Date(typeof t === 'number' && t < 1e12 ? t * 1000 : t); if (isNaN(dt)) return String(t);
+var m = Math.round((Date.now() - dt) / 6e4); if (m < 60) return 'vor ' + Math.max(1, m) + ' Min.';
+var h = Math.round(m / 60); if (h < 24) return 'vor ' + h + ' Std.';
+var dd = Math.round(h / 24); return dd === 1 ? 'vor 1 Tag' : 'vor ' + dd + ' Tagen';
+}
+function renderMsgs() {
+var box = $('#wxMsgs'), more = $('#wxMore');
+if (!msgs.length) {
+box.className = '';
+box.innerHTML = '<div class="wx-empty"><h4 class="wx-card-title">Hier erscheinen eure Nachrichten.</h4><p class="wx-muted">Wer spendet, kann den Kindern ein paar Worte schreiben. Sei die erste Person, deren Nachricht hier steht.</p>' +
+'<a href="#spenden" class="button w-inline-block"><div class="button_label"><div class="button_text">Jetzt spenden</div><div class="button_text is-clone">Jetzt spenden</div></div><div data-i="heart" data-s="btn" data-c="white" class="ico"></div></a></div>';
+more.hidden = true; return;
+}
+box.className = 'wx-msgs';
+box.innerHTML = msgs.slice(0, shown).map(function (m) {
+var n = (m.name || '').trim() || 'Anonym';
+var ini = n.replace(/[^\p{L}\s]/gu, '').split(/\s+/).filter(Boolean).map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase() || '♥';
+return '<article class="wx-msg' + (m.sample ? ' is-sample' : '') + '"><p>' + (m.text ? esc(m.text) : 'Hat gespendet.') + '</p>' +
+'<footer><span class="wx-msg-av" aria-hidden="true">' + esc(ini) + '</span><span class="wx-msg-who">' + esc(n) + '<small>' + esc(m.sample ? 'Beispiel' : ago(m.time)) + '</small></span></footer></article>';
+}).join('');
+more.hidden = msgs.length <= shown;
+$$('.wx-msg').forEach(function (el, i) { reveal(el, '', (i % 6) * 90); });
+}
+$('#wxMore').addEventListener('click', function () { shown += 6; renderMsgs(); });
+function pick(o, keys) { for (var i = 0; i < keys.length; i++) { if (o[keys[i]] != null && o[keys[i]] !== '') return o[keys[i]]; } return ''; }
+if (W.wxPreview) $('.wx-preview').hidden = false;
+render(0, 0);
+W.wxTwingle().then(function (t) {
+var line = t.split('\n').filter(function (l) { return l.indexOf('__twingle_projectData') > -1; })[0];
+var o = JSON.parse(line.trim().replace(/^var __twingle_projectData\s*=\s*/, '').replace(/;\s*$/, ''));
+render(+o.project_target_amount || 0, +o.project_target_donators || 0);
+msgs = (o.project_donations || []).map(function (x) {
+return { name: pick(x, ['name', 'donator_name', 'display_name']), text: pick(x, ['message', 'comment', 'text']), time: pick(x, ['created_at', 'date', 'timestamp', 'time']), sample: x.sample };
+});
+renderMsgs();
+}).catch(function () { d.documentElement.classList.add('wx-load-error'); renderMsgs(); });
+var frame = $('.wx-frame'), form = $('#spendenformular');
+function loadForm(amount) {
+var src = CFG.form + '?tw_amount=' + (amount || 40);
+if (amount || !frame.getAttribute('src')) { form.classList.add('is-tw-loading'); frame.src = src; }
+}
+new IntersectionObserver(function (es, o) {
+if (es[0].isIntersecting) { o.disconnect(); loadForm(); }
+}, { rootMargin: '600px 0px' }).observe(form);
+W.addEventListener('message', function (e) {
+if (e.source !== frame.contentWindow) return;
+var m = e.data;
+if (m && m.type === 'size' && +m.value > 0) { frame.style.height = (Math.ceil(+m.value) + 40) + 'px'; form.classList.remove('is-tw-loading'); }
+});
+$$('.wx-amount').forEach(function (a) {
+a.addEventListener('click', function () {
+$$('.wx-amount').forEach(function (x) { x.classList.toggle('is-active', x === a); });
+loadForm(a.getAttribute('data-amount'));
+});
+});
+var dlg = $('#wxShare'), toast = $('#wxToast'), tt;
+function say(t) { (dlg.open ? dlg : d.body).appendChild(toast); toast.textContent = t; toast.classList.add('is-on'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('is-on'); }, 2200); }
+function copy(t, ok) { (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { say(ok); }).catch(function () { W.prompt('Zum Kopieren:', t); }); }
+$('#wxShWa').href = 'https://wa.me/?text=' + encodeURIComponent(CFG.shareText + ' ' + CFG.shareUrl);
+$('#wxShMail').href = 'mailto:?subject=' + encodeURIComponent('Weihnachten soll leuchten') + '&body=' + encodeURIComponent(CFG.shareText + '\n\n' + CFG.shareUrl);
+$('#wxShCopy').addEventListener('click', function () { copy(CFG.shareUrl, 'Link kopiert'); });
+$('#wxShClose').addEventListener('click', function () { dlg.close(); });
+dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); }); // Klick auf den Hintergrund
+$$('[data-share]').forEach(function (b) {
+b.addEventListener('click', function () {
+if (navigator.share) { navigator.share({ title: 'Weihnachten soll leuchten', text: CFG.shareText, url: CFG.shareUrl }).catch(function () {}); return; }
+if (dlg.showModal) dlg.showModal(); else copy(CFG.shareUrl, 'Link kopiert');
+});
+});
+var dock = $('.wx-dock'), bar = $('.wx-barometer'), donate = $('#spenden');
+function onDock() {
+var r = donate.getBoundingClientRect(), b = bar.getBoundingClientRect();
+var hide = (r.top < W.innerHeight * 0.8 && r.bottom > 0) || b.bottom > 0 || d.body.classList.contains('is-menu-open');
+dock.classList.toggle('is-on', !hide);
+}
+W.addEventListener('scroll', onDock, { passive: true }); onDock();
+})();
+});</script>
