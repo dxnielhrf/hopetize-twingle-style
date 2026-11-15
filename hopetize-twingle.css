@@ -109,7 +109,7 @@ textarea{height:auto!important;min-height:110px;padding-top:16px!important}
 .input-wrapper input:hover,.input-wrapper select:hover,textarea:hover{border-color:var(--hz-lilac-200)!important}
 .input-wrapper input:focus,.input-wrapper select:focus,textarea:focus{border-color:var(--hz-purple)!important;box-shadow:0 0 0 3px rgba(97,50,140,.16)!important;outline:none!important}
 .input-wrapper label{color:var(--hz-ink-muted)!important;font-size:.9375rem!important;left:16px!important;font-weight:400!important}
-.input-wrapper.ng-invalid.ng-touched input,.input-wrapper.ng-invalid.ng-touched select{border-color:var(--hz-error)!important}
+.input-wrapper input.ng-invalid.ng-touched,.input-wrapper select.ng-invalid.ng-touched{border-color:var(--hz-error)!important}
 .error,.form-error,small.error{color:var(--hz-error)!important;font-size:.8125rem!important}
 
 .contact-wrapper .checkboxes{margin-top:6px!important;padding-left:0!important;padding-right:0!important}
@@ -242,7 +242,9 @@ amount button.button:not(.inactive){color:var(--hz-purple)!important;font-weight
 .input-wrapper>input,.input-wrapper>select{margin-top:0!important}
 .input-wrapper label{position:static!important;transform:none!important;display:block!important;margin:0 0 6px!important;padding:0!important;font-weight:600!important;font-size:.875rem!important;color:var(--hz-ink)!important;opacity:1!important;background:none!important;line-height:1.3!important;top:auto!important;left:auto!important}
 .input-wrapper input::placeholder{color:#A69BB3!important;opacity:1}
-.input-wrapper.ng-invalid.ng-touched input{background:#FFF8F6!important}
+.input-wrapper input.ng-invalid.ng-touched{background:#FFF8F6!important}
+/* Twingle graut nicht gewaehlte Zahlungsarten aus; im Figma bleiben sie normal */
+.payment-component-wrapper .method-wrapper>div,.payment-component-wrapper .method-wrapper label,.payment-component-wrapper .method-wrapper label>span{opacity:1!important;color:var(--hz-ink)!important}
 
 /* Unternehmen-Schalter und Checkboxen schlicht */
 .company .checkbox-toggle label{border:0!important;background:none!important;min-height:40px!important;padding:4px 0!important;font-weight:600!important}
