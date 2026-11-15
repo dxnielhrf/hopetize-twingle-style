@@ -18,7 +18,7 @@ if (!frame) return;
 window.addEventListener('message', function (e) {
 if (e.source !== frame.contentWindow) return;
 var d = e.data;
-if (d && d.type === 'size' && +d.value > 0) { frame.style.height = (Math.ceil(+d.value) + 40) + 'px'; slot.classList.remove('is-tw-loading'); }
+if (d && d.type === 'size' && +d.value > 0) { frame.style.height = (Math.ceil(+d.value) + 60) + 'px'; slot.classList.remove('is-tw-loading'); }
 });
 document.addEventListener('ht:donate-open', function () {
 if (frame.getAttribute('src')) return;
