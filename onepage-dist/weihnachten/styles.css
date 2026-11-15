@@ -813,6 +813,7 @@ a.chip.is-link.is-light,a.chip.is-link.is-light:visited{color:var(--_colors---pu
 .impact_grid.is-4 .wx-cta{font-size:.8125em}
 }
 .business_text,.impact_text,.step_text{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
+.voice_card.is-scallop,.quote_bg.is-scallop{-webkit-mask:radial-gradient(var(--r) at 50% 50%,#000 97%,#0000) 0 0/var(--tx) var(--ty) repeat,linear-gradient(#000 0 0) 50%/calc(100% - var(--tx)) calc(100% - var(--ty)) no-repeat;mask:radial-gradient(var(--r) at 50% 50%,#000 97%,#0000) 0 0/var(--tx) var(--ty) repeat,linear-gradient(#000 0 0) 50%/calc(100% - var(--tx)) calc(100% - var(--ty)) no-repeat}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
@@ -908,3 +909,7 @@ html.hv-lock .wx-dock,body.is-menu-open .wx-dock{transform:translateY(160%)}
 .wx-msg.wx-don{display:flex;align-items:center;gap:.9em;padding:1.1em 1.4em;margin-bottom:1em}
 .wx-msg.wx-don .wx-msg-av{color:#e16e3e;font-size:1.1em}
 .wx-msg.wx-don .wx-msg-who{font-size:1.0625em}
+.wx-msgs:has(.wx-don){columns:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(17em,1fr));gap:1em}
+.wx-msgs .wx-msg.wx-don{margin:0;box-shadow:0 14px 30px -20px rgba(78,46,113,.25)}
+.wx-msg.wx-don.is-anon .wx-msg-av{color:#e16e3e}
+.wx-msg.wx-don:not(.is-anon) .wx-msg-av{font-size:.875em;color:var(--purple-deep)}

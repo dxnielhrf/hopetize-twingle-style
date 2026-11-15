@@ -546,6 +546,32 @@ sec.insertBefore(snow, sec.firstChild);
 });
 })();
 });</script><script>document.addEventListener('DOMContentLoaded',function(){
+/* Gewellte Kanten (.voice_card, .quote_bg): Die Maske kachelt Kreise mit "round". Safari setzt "round" nicht sauber um
+und schneidet die letzte Welle rechts/unten ab. Darum rechnen wir pro Element die Kachelgroesse so aus, dass eine
+ganze Zahl Wellen exakt hineinpasst (--tx/--ty), und die Maske nutzt "repeat" (CSS in styles.css). Die Groesse der
+Elemente bleibt unveraendert (wichtig fuers Laufband der Stimmen). */
+(function () {
+'use strict';
+function tileOf(el) {
+var cs = getComputedStyle(el), fs = parseFloat(cs.fontSize) || 16, r = cs.getPropertyValue('--r').trim();
+var px = /em$/.test(r) ? parseFloat(r) * fs : parseFloat(r);
+return px > 0 ? 2 * px : 0;
+}
+function snap() {
+[].forEach.call(document.querySelectorAll('.voice_card, .quote_bg'), function (el) {
+var t = tileOf(el), w = el.offsetWidth, h = el.offsetHeight; // offset*: Layoutgroesse, unabhaengig von Animationen (transform)
+if (!t || !w || !h) return;
+el.style.setProperty('--tx', (w / Math.max(1, Math.floor(w / t))) + 'px');
+el.style.setProperty('--ty', (h / Math.max(1, Math.floor(h / t))) + 'px');
+el.classList.add('is-scallop');
+});
+}
+var tm;
+window.addEventListener('resize', function () { clearTimeout(tm); tm = setTimeout(snap, 150); });
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(snap);
+snap();
+})();
+});</script><script>document.addEventListener('DOMContentLoaded',function(){
 (function(){var d=document,q=function(s){return Array.prototype.slice.call(d.querySelectorAll(s))};
 function run(){
 var a=d.querySelector('.amount_input');if(a){a.placeholder='Freier Betrag … €';a.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault()});}
