@@ -112,6 +112,8 @@ label{margin-bottom:5px;font-weight:bold;display:block}
 .button_label{height:1.2em;position:relative;overflow:hidden}
 .button_text{line-height:1.2em}
 .button_text.is-clone{position:absolute;top:100%;left:0}
+.chip{grid-column-gap:.5em;white-space:nowrap;border-radius:99px;align-items:center;padding:.625em 1.125em .625em 1em;font-size:1em;font-weight:600;line-height:1.2;display:inline-flex}
+.chip.is-light{color:var(--_colors---purple);background-image:linear-gradient(#fff,#efe7f9);box-shadow:0 6px 14px -2px #2e184640}
 .ico{flex-shrink:0;width:1em;height:1em;display:inline-block}
 .loader_sheet,.loader_logo{position:absolute}
 .loader_ribbon{max-width:none}
@@ -796,6 +798,13 @@ a.tag.is-link:focus-visible{outline:3px solid #61328c;outline-offset:3px}
 @media (max-width:767px){#weihnachten a.tag.is-link{font-size:.8125em;white-space:nowrap}
 #weihnachten .tag_arrow{display:none}
 }
+a.chip.is-link{text-decoration:none;cursor:pointer;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s}
+.chip_arrow{margin-left:.1em;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+@media (hover:hover){a.chip.is-link:hover{transform:translateY(-2px);box-shadow:0 12px 24px -12px rgba(0,0,0,.35)}
+a.chip.is-link:hover .chip_arrow{transform:translateX(3px)}
+}
+a.chip.is-link:focus-visible{outline:3px solid #f2c74f;outline-offset:3px}
+a.chip.is-link.is-light,a.chip.is-link.is-light:visited{color:var(--_colors---purple)}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
