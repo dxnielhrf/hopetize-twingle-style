@@ -788,6 +788,14 @@ a.tag.is-link:focus-visible{outline:3px solid #61328c;outline-offset:3px}
 .impact_card.is-custom .impact_amount{font-size:1.6em;line-height:1.25;padding:.35em 0}
 @media (max-width:767px){.impact_card.is-custom .impact_amount{font-size:1.15em}
 }
+.wrapper_xmas>.section-head:has(.xmas-head){max-width:none}
+.xmas-head{max-width:none}
+.xmas-head .pill-text .ht-w{position:relative}
+@media (min-width:768px){.xmas-head .xmas-line{display:block;white-space:nowrap}
+}
+@media (max-width:767px){#weihnachten a.tag.is-link{font-size:.8125em;white-space:nowrap}
+#weihnachten .tag_arrow{display:none}
+}
 .wx-preview[hidden],#wxMore[hidden]{display:none!important}
 .wx-hero .padding-vertical.is-hero-space{padding-bottom:6em}
 .wx-preview{background:#fff1a6;color:var(--ink);border-radius:999px;padding:.55em 1.1em;font-size:.9375em;font-weight:600;text-align:center}
@@ -872,4 +880,11 @@ html.hv-lock .wx-dock,body.is-menu-open .wx-dock{transform:translateY(160%)}
 .wx-dock-share{width:2.9em;height:2.9em;flex:none;border-radius:50%;background:#fff;border:1px solid #e8ddf8;color:var(--purple);display:grid;place-items:center}
 .wx-dock-share svg{width:1.15em;height:1.15em}
 .footer{padding-bottom:6em}
+}
+@media (max-width:767px){.wx-steps{grid-template-columns:1fr 1fr;gap:.75em;margin-top:0}
+.wx-steps .step_media{display:none}
+.wx-steps .step_body{padding:1.1em 1em 1.25em}
+.wx-steps .step_num{margin-top:0;margin-bottom:.75em;width:2em;height:2em}
+.wx-steps .step_title{font-size:1.125em}
+.wx-steps .step_text{font-size:.875em}
 }
