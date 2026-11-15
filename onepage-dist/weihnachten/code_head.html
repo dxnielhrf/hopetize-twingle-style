@@ -1,7 +1,7 @@
 <script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><script>(function(h){h.classList.add('js');try{if(sessionStorage.getItem('ht-loader')!=='1'||/[?&]loader/.test(location.search))h.classList.add('is-loading')}catch(e){h.classList.add('is-loading')}})(document.documentElement);</script><style>.skip-to-content,#root .con-kit-page>:not(.con-kit-component-cookie-banner):not(.con-kit-component-cookie-banner-bulka){display:none!important}#root,#root .con-kit-site,#root .con-kit-page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important}</style><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2"><link rel="icon" type="image/png" sizes="32x32" href="https://onecdn.io/media/effb2c8e-1c05-479f-83b1-9c4cce7b7b98/full"><link rel="apple-touch-icon" href="https://onecdn.io/media/0de89681-2481-454a-ba10-0f233ca93804/full"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#F6F2FC"><script>
 /* Weihnachtsaktion: Twingle-Projektdaten genau einmal laden. Laeuft im Head VOR interactions.js.
 interactions.js (Barometer) und wx.js lesen beide __twingle_projectData aus dem Formular-HTML. Der fetch-Wrapper
-beantwortet nur genau diese URL aus einem gemeinsamen Promise; bei ?vorschau=1 mit Beispielwerten. */
+beantwortet nur diese URL (auch mit ?stand=…) aus einem gemeinsamen Promise; ?stand= wechselt minuetlich, weil Twingles CDN die nackte URL lange cacht; bei ?vorschau=1 mit Beispielwerten. */
 (function () {
 'use strict';
 var TW = 'https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form';
@@ -20,10 +20,10 @@ window.wxPreview = PREVIEW;
 window.wxTwingle = function () {
 return p || (p = PREVIEW || !F
 ? Promise.resolve('var __twingle_projectData = ' + JSON.stringify(PREVIEW ? SAMPLE : {}) + ';')
-: F.call(window, TW, { credentials: 'omit' }).then(function (r) { if (!r.ok) throw new Error('Twingle ' + r.status); return r.text(); }));
+: F.call(window, TW + '?stand=' + Math.floor(Date.now() / 60000), { credentials: 'omit' }).then(function (r) { if (!r.ok) throw new Error('Twingle ' + r.status); return r.text(); }));
 };
 if (F) window.fetch = function (u) {
-return u === TW ? window.wxTwingle().then(function (t) { return new Response(t); }) : F.apply(this, arguments);
+return typeof u === 'string' && u.indexOf(TW) === 0 ? window.wxTwingle().then(function (t) { return new Response(t); }) : F.apply(this, arguments);
 };
 })();
 </script><script>document.addEventListener('DOMContentLoaded',function(){
@@ -209,7 +209,7 @@ var showBar = function () { fill.style.width = clamp(raised / goal * 100, raised
 setGoal();
 val.textContent = '0';
 bar._onView = function () { barSeen = true; setTimeout(showBar, 250); };
-if (W.fetch) fetch('https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form', { credentials: 'omit' })
+if (W.fetch) fetch('https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form?stand=' + Math.floor(Date.now() / 60000), { credentials: 'omit' })
 .then(function (r) { return r.text(); })
 .then(function (t) {
 var line = t.split('\n').filter(function (l) { return l.indexOf('__twingle_projectData') > -1; })[0];

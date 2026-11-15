@@ -181,7 +181,7 @@ var showBar = function () { fill.style.width = clamp(raised / goal * 100, raised
 setGoal();
 val.textContent = '0';
 bar._onView = function () { barSeen = true; setTimeout(showBar, 250); };
-if (W.fetch) fetch('https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form', { credentials: 'omit' })
+if (W.fetch) fetch('https://spenden.twingle.de/hopetize-kinderkrebshilfe-e-v/weihnachtsaktion-2026/tw6af34c1b4d503/form?stand=' + Math.floor(Date.now() / 60000), { credentials: 'omit' })
 .then(function (r) { return r.text(); })
 .then(function (t) {
 var line = t.split('\n').filter(function (l) { return l.indexOf('__twingle_projectData') > -1; })[0];
