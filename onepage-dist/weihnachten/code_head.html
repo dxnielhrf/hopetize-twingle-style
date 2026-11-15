@@ -552,7 +552,7 @@ ol.appendChild(li);
 var msgs = [], shown = W.matchMedia('(max-width:767px)').matches ? 3 : 6;
 function ago(t) {
 if (!t) return '';
-var dt = new Date(typeof t === 'number' && t < 1e12 ? t * 1000 : t); if (isNaN(dt)) return String(t);
+var n = +t, dt = new Date(!isNaN(n) && n < 1e12 ? n * 1000 : t); if (isNaN(dt)) return ''; // twingle liefert Unix-Sekunden als Text
 var m = Math.round((Date.now() - dt) / 6e4); if (m < 60) return 'vor ' + Math.max(1, m) + ' Min.';
 var h = Math.round(m / 60); if (h < 24) return 'vor ' + h + ' Std.';
 var dd = Math.round(h / 24); return dd === 1 ? 'vor 1 Tag' : 'vor ' + dd + ' Tagen';
@@ -584,7 +584,8 @@ var line = t.split('\n').filter(function (l) { return l.indexOf('__twingle_proje
 var o = JSON.parse(line.trim().replace(/^var __twingle_projectData\s*=\s*/, '').replace(/;\s*$/, ''));
 render(+o.project_target_amount || 0, +o.project_target_donators || 0);
 msgs = (o.project_donations || []).map(function (x) {
-return { name: pick(x, ['name', 'donator_name', 'display_name']), text: pick(x, ['message', 'comment', 'text']), time: pick(x, ['created_at', 'date', 'timestamp', 'time']), sample: x.sample };
+var dd = x.data || x; // twingle: Name/Nachricht stecken in x.data (nur gesetzt, wenn showDonation erlaubt)
+return { name: pick(dd, ['name', 'donator_name', 'display_name']), text: pick(dd, ['message', 'comment', 'text']), time: pick(x, ['timestamp', 'created_at', 'date', 'time']), sample: x.sample };
 });
 renderMsgs();
 }).catch(function () { d.documentElement.classList.add('wx-load-error'); renderMsgs(); });
