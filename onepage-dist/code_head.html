@@ -1,11 +1,11 @@
-<script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><script>(function(h){h.classList.add('js');try{if(sessionStorage.getItem('ht-loader')!=='1'||/[?&]loader/.test(location.search))h.classList.add('is-loading')}catch(e){h.classList.add('is-loading')}})(document.documentElement);</script><style>.skip-to-content,#root .con-kit-page>:not(.con-kit-component-cookie-banner):not(.con-kit-component-cookie-banner-bulka){display:none!important}#root,#root .con-kit-site,#root .con-kit-page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important}</style><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2"><link rel="icon" type="image/png" sizes="32x32" href="https://onecdn.io/media/effb2c8e-1c05-479f-83b1-9c4cce7b7b98/full"><link rel="apple-touch-icon" href="https://onecdn.io/media/0de89681-2481-454a-ba10-0f233ca93804/full"><script>document.addEventListener('DOMContentLoaded',function(){
+<script>!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><script>(function(h){h.classList.add('js');try{if(sessionStorage.getItem('ht-loader')!=='1'||/[?&]loader/.test(location.search))h.classList.add('is-loading')}catch(e){h.classList.add('is-loading')}})(document.documentElement);</script><script>(function(w,d){var q=[],on=0;function go(){if(on)return;on=1;q.forEach(function(f){try{f()}catch(e){setTimeout(function(){throw e})}})}w.__ht=function(f){on?f():q.push(f)};w.__htGo=go;d.addEventListener('DOMContentLoaded',go)})(window,document);</script><style>.skip-to-content,#root .con-kit-page>:not(.con-kit-component-cookie-banner):not(.con-kit-component-cookie-banner-bulka){display:none!important}#root,#root .con-kit-site,#root .con-kit-page{min-height:0!important;height:auto!important;padding:0!important;margin:0!important}</style><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-400-normal.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/npm/@fontsource/figtree@5.0.20/files/figtree-latin-700-normal.woff2"><link rel="icon" type="image/png" sizes="32x32" href="https://onecdn.io/media/effb2c8e-1c05-479f-83b1-9c4cce7b7b98/full"><link rel="apple-touch-icon" href="https://onecdn.io/media/0de89681-2481-454a-ba10-0f233ca93804/full"><script>__ht(function(){
 /* Onepage-Port: Onepage rendert seine Sektionen in #root (React). Unsere Seite liegt komplett im Seiten-Code daneben.
 #root enthaelt nur eine leere Platzhalter-Sektion (Onepage braucht >= 1 Sektion zum Veroeffentlichen) und ist per Head-CSS ausgeblendet. */
 (function () {
 'use strict';
 document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href="#"]'); if (a) e.preventDefault(); });
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 /* Hopetize: Twingle-Spendenformular im Spenden-Pop-up (.donate_modal [data-twingle-slot]).
 Logik aus twingle/hopetize-popup.js, aber Datenschutz: das iframe wird erst beim ERSTEN Oeffnen geladen
 (Twingle/Stripe setzt Cookies, sobald das Formular laedt) und bleibt danach geladen (Eingaben bleiben erhalten). */
@@ -29,7 +29,7 @@ slot.classList.add('is-tw-loading');
 frame.src = src;
 });
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 (function () {
 'use strict';
 var d = document, html = d.documentElement, W = window;
@@ -470,7 +470,7 @@ var fontsReady = d.fonts && d.fonts.ready ? d.fonts.ready : Promise.resolve();
 Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1400); })]).then(function () { requestAnimationFrame(boot); });
 var rz; W.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { heads.forEach(lineIndex); moveInd(activeLink); }, 200); });
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 /* Barometer-Etappen auf der Startseite (wie auf /weihnachten): liest data-raised / data-donators,
 die interactions.js aus den twingle-Projektdaten setzt, und baut Etappen-Kacheln, Marken und Anzahl.
 Die Weihnachtsseite rendert das selbst (pages/weihnachten/js/wx.js), daher dort aus. */
@@ -509,7 +509,7 @@ ol.appendChild(li);
 render();
 new MutationObserver(render).observe(bar, { attributes: true, attributeFilter: ['data-raised', 'data-donators'] });
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 /* Weihnachtliche Deko fuer Bereiche mit [data-xmas] (Startseite #weihnachten, Hero der Weihnachtsseite):
 Lichterkette oben am Rand und leiser Schneefall. Rein dekorativ (aria-hidden), stoert keine Klicks.
 Bei "Bewegung reduzieren" haengt die Lichterkette still und es schneit nicht. */
@@ -545,7 +545,7 @@ snow.innerHTML = html;
 sec.insertBefore(snow, sec.firstChild);
 });
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 /* Gewellte Kanten (.voice_card, .quote_bg): Eine gekachelte CSS-Maske (radial-gradient + repeat/round) rundet Safari
 pro Kachel auf ganze Pixel; die Abweichung summiert sich und die letzten Wellen rechts/unten werden abgeschnitten.
 Darum zeichnen wir pro Element EINE SVG-Maske in exakter Groesse: Innenrechteck + Kreise entlang der Kanten, bei
@@ -581,7 +581,7 @@ window.addEventListener('resize', function () { clearTimeout(tm); tm = setTimeou
 (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(snap);
 snap();
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 (function(){var d=document,q=function(s){return Array.prototype.slice.call(d.querySelectorAll(s))};
 function run(){
 var a=d.querySelector('.amount_input');if(a){a.placeholder='Freier Betrag … €';a.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault()});}
@@ -591,7 +591,7 @@ q('.amount,.bank_copy,.faq_question,.nav_burger').forEach(function(b){if(b.tagNa
 q('img[alt="inherit"]').forEach(function(i){i.alt=''});
 }
 if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',run);else run();})();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 (function(){
 document.querySelectorAll('.hz-carousel:not(.is-ready)').forEach(function(root){
 var track=root.querySelector('.hz-carousel-track'), live=root.querySelector('[aria-live]');
@@ -653,7 +653,7 @@ if('ResizeObserver' in window) new ResizeObserver(size).observe(root); else addE
 root.classList.add('is-ready'); setStopped(stopped); size();
 });
 })();
-});</script><script>document.addEventListener('DOMContentLoaded',function(){
+});</script><script>__ht(function(){
 (function(){
 var modal=document.querySelector('.hv-modal'); if(!modal||modal.dataset.ready) return; modal.dataset.ready='1';
 document.body.appendChild(modal); // raus aus Sektionen mit transform/overflow, damit position:fixed sicher greift
