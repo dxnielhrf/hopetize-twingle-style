@@ -316,3 +316,6 @@ donator messagefield{display:none!important}
 donator textfield>.input-wrapper{width:100%!important;float:none!important}
 label[for="showDonation"]>span{font-size:0!important}
 label[for="showDonation"]>span::after{content:"Ja, mein Vorname darf bei den neuesten Spenden auf der Aktionsseite erscheinen.";font-size:.9375rem;line-height:1.45}
+/* v17: Betragsfeld breiter, damit 1000 (und bis 10000) auch mobil reinpasst */
+.slider-input-wrapper .input-wrapper{flex-basis:120px!important}
+#transaction-amount{padding-right:32px!important}
